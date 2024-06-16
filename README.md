@@ -1,2 +1,107 @@
-# devops-repo
-Rama Devops
+# proyecto-devops-2024
+Proyecto Devops 2024 (Microservicios-CICD-Terraform-AWS)
+
+# HERRAMIENTAS UTILIZADAS
+- Herramienta Git:
+- Kanban:
+- Herramienta CI/CD:
+- Herramienta para contenedores:
+- Orquestador:
+- Herramienta IaC:
+- Cloud Provider:
+- Herramienta para análisis de código estático:
+- Herramienta para análisis de prueba extra:
+- Elección de aplicativo de FE a buildear y desplegar:
+- Elección del servicio serverless a usar:
+- Ramas: (Gitflow o Trunk-Based)
+    - Rama Devops:
+    - Rama: 
+
+
+# TRUNK-BASED
+Trabajando con feature branches y pull requests en trunk-based development:
+##### Crear la feature branch:
+
+Desde la rama principal (trunk), crea una nueva rama para la característica:
+
+
+```markdown
+git checkout main
+git pull origin main
+git checkout -b feature/nueva-funcionalidad
+```
+##### Desarrollar en la feature branch:
+Realiza los cambios necesarios en el código. Asegúrate de realizar commits pequeños y frecuentes:
+
+```markdown
+git add .
+git commit -m "Implementa parte de la nueva funcionalidad"
+```
+##### Mantener la feature branch actualizada:
+Dado que otros desarrolladores estarán fusionando sus cambios en el trunk, es importante mantener tu feature branch actualizada:
+
+```markdown
+git checkout main
+git pull origin main
+git checkout feature/nueva-funcionalidad
+git merge main
+```
+
+##### Subir la feature branch al repositorio remoto:
+Una vez que tu funcionalidad está lista para revisión, sube tu rama al repositorio remoto:
+
+```markdown
+git push origin feature/nueva-funcionalidad
+```
+
+##### Crear un pull request:
+En la plataforma de alojamiento de tu repositorio (como GitHub, GitLab, Bitbucket, etc.), navega a la sección de pull requests y crea un nuevo pull request. Selecciona la rama feature/nueva-funcionalidad como la rama fuente y main como la rama destino. Asegúrate de incluir una descripción clara de los cambios y el propósito del PR.
+
+##### Revisión del pull request:
+Otros desarrolladores revisarán tu pull request. Pueden solicitar cambios, hacer comentarios, o aprobarlo. Si se solicitan cambios, realiza los ajustes necesarios en tu feature branch y súbelos:
+
+```markdown
+git add .
+git commit -m "Realiza cambios según comentarios del PR"
+git push origin feature/nueva-funcionalidad
+```
+
+##### Fusionar el pull request:
+Una vez que el pull request ha sido aprobado, puede ser fusionado en la rama main. Esto generalmente se hace desde la interfaz de la plataforma de repositorio.
+
+##### Eliminar la feature branch:
+Después de que la rama ha sido fusionada y el código ha sido desplegado, puedes eliminar la feature branch tanto local como remotamente:
+
+```markdown
+git branch -d feature/nueva-funcionalidad
+git push origin --delete feature/nueva-funcionalidad
+```
+
+# Backend
+
+empaquetado
+```markdown
+./mvnw clean package
+```
+
+dockerfile
+```markdown
+FROM openjdk:8-jdk-alpine
+ARG JAR_FILE
+COPY ${JAR_FILE} app.jar
+CMD java -jar /app.jar $APP_ARGS
+```
+
+crear imagen
+```markdown
+docker build --build-arg JAR_FILE=orders-service-example.jar -t orders-service-example:1 .
+```
+ejecutar contenedor
+
+```markdown
+docker run -d -p 8080:8080 orders-service-example:latest
+```
+
+```markdown
+docker run -d --name orders-service-example --env "APP_ARGS=http://172.17.0.2:8080 http://172.17.0.2:8080 http://172.17.0.2:8080" orders-service-example:1
+```
