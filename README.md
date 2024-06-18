@@ -20,6 +20,13 @@ Proyecto Devops 2024 (Microservicios-CICD-Terraform-AWS)
 
 # TRUNK-BASED
 Trabajando con feature branches y pull requests en trunk-based development:
+
+##### Clonar repositorio
+
+Posisionado donde querramos clonar nuestro repositorio en nuestro equipo, abrimos la terminal de bash y escribimos:
+
+git clone https://github.com/Proyecto-Devops-2024/devops-repo
+
 ##### Crear la feature branch:
 
 Desde la rama principal (trunk), crea una nueva rama para la característica:
