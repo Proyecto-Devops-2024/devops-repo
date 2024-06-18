@@ -2,20 +2,24 @@
 Proyecto Devops 2024 (Microservicios-CICD-Terraform-AWS)
 
 # HERRAMIENTAS UTILIZADAS
-- Herramienta Git:
-- Kanban:
-- Herramienta CI/CD:
-- Herramienta para contenedores:
-- Orquestador:
-- Herramienta IaC:
-- Cloud Provider:
-- Herramienta para análisis de código estático:
-- Herramienta para análisis de prueba extra:
-- Elección de aplicativo de FE a buildear y desplegar:
-- Elección del servicio serverless a usar:
-- Ramas: (Gitflow o Trunk-Based)
-    - Rama Devops:
-    - Rama: 
+- Herramienta Git: Git/Github
+- Kanban: Github Project
+- Herramienta CI/CD: Github Actions
+- Herramienta para contenedores: Docker
+- Orquestador: ---------
+- Herramienta IaC: Terraform
+- Cloud Provider: AWS
+- Herramienta para análisis de código estático: SonarQube
+- Herramienta para análisis de prueba extra: ------------- (Selenium, JUnit)
+- Elección de aplicativo de FE a buildear y desplegar: React (S3)
+- Elección del servicio serverless a usar: Cloudfront CDN - Lambda Functions - API Gateway
+- Estrategia de Ramas: (Gitflow o Trunk-Based)
+    - devops-repo: Trunk-Based
+    - frontend-react: Trunk-Based
+    - payments-service: Trunk-Based
+    - products-service: Trunk-Based
+    - shipping-service: Trunk-Based
+    - orders-service: Trunk-Based
 
 
 # TRUNK-BASED
