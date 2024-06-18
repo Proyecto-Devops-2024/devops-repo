@@ -117,4 +117,6 @@ docker run -d -p 8080:8080 orders-service-example:latest
 docker run -d --name orders-service-example --env "APP_ARGS=http://172.17.0.2:8080 http://172.17.0.2:8080 http://172.17.0.2:8080" orders-service-example:1
 ```
 
+# Tablero Kanban
+### Inicio Semana 1
 ![Ejemplo de imagen local](./imagenes/SEMANA1.png)
