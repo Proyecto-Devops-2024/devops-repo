@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Check input
         run: echo "${{ inputs.sonar_project_key }}"
-        
+
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
@@ -38,4 +38,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=${{ inputs.sonar_project_key }}
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=${{ inputs.sonar_project_key }} -Dsonar.organization=proyecto-devops-2024
