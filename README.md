@@ -21,6 +21,16 @@ Proyecto Devops 2024 (Microservicios-CICD-Terraform-AWS)
     - shipping-service: Trunk-Based
     - orders-service: Trunk-Based
 
+# Estrategia de Ramas
+#### Ramas Microservicios:
+Estrategia Trunk-Based
+Elegimos estra estrategia para el seguimiento del flujo, ya que tenemos una correcta segmentación de los cuatro microservicios a trabajar, teniendo 4 respositorios independientes.
+Esto nos permite que cuando un solo microservicio tiene cambios en el código, solo se ejecutará el pipeline correspondiente a él, y no todos los microservicios.
+Al ser de esta manera, y teniendo tres ambientes los cuales recorrerá el pipeline, deployando el mismo código en cada uno de ellos, nos parece una correcta forma de seguimiento, ya que en caso de eventuales inconvenientes, el problema podrá ser detectado por cada micro servicio en el pipeline, tanto en ambiente dev o test, antes de pasar a producción, previa autorización manual. 
+#### Rama Devops:
+Estrategia Trunk-Based
+Para el caso de esta repositorio, también entendimos conveniente esta estrategía.
+A diferencia de las ramas para microservicios, todas las modificaciones de código serán generadas por el equipo utilizando feature-branches, lo que nos permite no solo el versionado correspondiente a los códigos a crear, sino también un correcto seguimiento y monitoreo por parte del equipo, generando pull request para la autorización de cada nuevo feature a agregar.
 
 # TRUNK-BASED
 Trabajando con feature branches y pull requests en trunk-based development:
@@ -120,3 +130,6 @@ docker run -d --name orders-service-example --env "APP_ARGS=http://172.17.0.2:80
 # Tablero Kanban
 ### Inicio Semana 1
 ![Ejemplo de imagen local](./imagenes/SEMANA1.png)
+
+### Inicio Semana 2
+![Ejemplo de imagen local](./imagenes/SEMANA2.png)
