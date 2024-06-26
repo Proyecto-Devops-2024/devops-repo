@@ -3,9 +3,9 @@
 resource "aws_s3_bucket" "s3bucketFrontendDevops" {
 
   for_each = {
-    dev  = "my-devapp-devops-bucket"
-    test = "my-testapp-devops-bucket"
-    prod = "my-prodapp-devops-bucket"
+    dev  = "devapp-devops-bucket"
+    test = "testapp-devops-bucket"
+    prod = "prodapp-devops-bucket"
   }
 
   bucket = "${each.key}-${each.value}"
@@ -43,25 +43,47 @@ resource "aws_s3_bucket_website_configuration" "website_configuration" {
   }
 }
 
-resource "aws_s3_bucket_policy" "bucket_policy" {
+resource "aws_s3_bucket_policy" "public" {
   for_each = aws_s3_bucket.s3bucketFrontendDevops
 
   bucket = each.value.id
-
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Sid = "PublicReadGetObject"
-        Effect = "Allow"
-        Principal = "*"
-        Action = [
-          "s3:GetObject"
-        ]
-        Resource = [
-          "arn:aws:s3:::${each.value.id}/*"
-        ]
-      }
+  depends_on = [aws_s3_bucket.s3bucketFrontendDevops,
+  aws_s3_bucket_acl.my-static-website]
+  policy = <<POLICY
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "PublicReadGetObject",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "${each.value.arn}/*"
+        }
     ]
-  })
+}
+POLICY
+}
+
+# S3 bucket ACL access
+
+resource "aws_s3_bucket_ownership_controls" "bucket" {
+  for_each = aws_s3_bucket.s3bucketFrontendDevops
+
+  bucket = each.value.id
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
+
+resource "aws_s3_bucket_acl" "my-static-website" {
+  for_each = aws_s3_bucket.s3bucketFrontendDevops
+
+  bucket = each.value.id
+  depends_on = [
+    aws_s3_bucket_ownership_controls.bucket,
+    aws_s3_bucket_public_access_block.public_access_block,
+  ]
+
+  acl = "public-read"
 }
