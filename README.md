@@ -32,6 +32,13 @@ Estrategia Trunk-Based
 Para el caso de esta repositorio, también entendimos conveniente esta estrategía.
 A diferencia de las ramas para microservicios, todas las modificaciones de código serán generadas por el equipo utilizando feature-branches, lo que nos permite no solo el versionado correspondiente a los códigos a crear, sino también un correcto seguimiento y monitoreo por parte del equipo, generando pull request para la autorización de cada nuevo feature a agregar.
 
+# SECRETS ORGANIZACIÓN
+
+ORDERS_ECR_URI = 931481537897.dkr.ecr.us-east-1.amazonaws.com/orders-service-ecr-repo
+PAYMENTS_ECR_URI = 931481537897.dkr.ecr.us-east-1.amazonaws.com/payments-service-ecr-repo
+PRODUCTS_ECR_URI = 931481537897.dkr.ecr.us-east-1.amazonaws.com/products-service-ecr-repo
+SHIPPING_ECR_URI = 931481537897.dkr.ecr.us-east-1.amazonaws.com/shipping-service-ecr-repo
+
 # TRUNK-BASED
 Trabajando con feature branches y pull requests en trunk-based development:
 
