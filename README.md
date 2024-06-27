@@ -107,24 +107,28 @@ git push origin --delete feature/nueva-funcionalidad
 
 # Backend
 
-empaquetado
+Prerrequisitos
+```markdown
+Instalar JDK
+```
+Empaquetado
 ```markdown
 ./mvnw clean package
 ```
 
-dockerfile
+Dockerfile
 ```markdown
 FROM openjdk:8-jdk-alpine
-ARG JAR_FILE
+ARG target/JAR_FILE
 COPY ${JAR_FILE} app.jar
 CMD java -jar /app.jar $APP_ARGS
 ```
 
-crear imagen
+Crear imagen
 ```markdown
 docker build --build-arg JAR_FILE=orders-service-example.jar -t orders-service-example:1 .
 ```
-ejecutar contenedor
+Ejecutar contenedor
 
 ```markdown
 docker run -d -p 8080:8080 orders-service-example:latest
