@@ -14,7 +14,7 @@ jobs:
 
       - name: Check input
         run: |
-          echo "${{ inputs.sonar_project_key }}" && echo "${{ secrets.SONAR_TOKEN }}" 
+          echo "${{ inputs.sonar_project_key }}" && echo "${{ secrets.SONAR_TOKEN }} ${{ secrets.SEBASTIAN_ORG_TESTING }}" 
 
       - uses: actions/checkout@v3
         with:
