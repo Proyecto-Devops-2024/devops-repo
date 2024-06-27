@@ -6,11 +6,12 @@ on:
       sonar_project_key:
         required: true
         type: string
-
+        
 permissions: write-all
+
 jobs:
   build-and-test:
-    uses: ./.github/workflows/build-and-test/maven-build-and-test.yml
+    uses: ./.github/workflows/maven-build-and-test.yml
 
   sonarqube-scan:
     needs: build-and-test
