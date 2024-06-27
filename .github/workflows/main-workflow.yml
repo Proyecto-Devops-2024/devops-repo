@@ -1,0 +1,42 @@
+name: main-workflow
+
+on:
+  workflow_call:
+    inputs:
+      sonar_project_key:
+        required: true
+        type: string
+
+permissions: write-all
+
+jobs:
+  build-and-test:
+    uses: ./.github/workflows/build-and-test/maven-build-and-test.yml
+
+  sonarqube-scan:
+    needs: build-and-test
+    uses: ./.github/workflows/sonarqube/sonarqube-scan-java.yml
+    with:
+      sonar_project_key: Proyecto-Devops-2024_orders-service
+
+  ecr-login-and-push:
+    needs: sonarqube-scan
+    runs-on: ubuntu-latest
+    steps:
+      run: echo "ecr-login-and-push"
+
+  deploy-dev:
+    needs: ecr-login-and-push
+    uses: ./.github/workflows/deploy-dev/deploy-dev.yml
+
+  deploy-staging:
+    needs: deploy-dev
+    uses: ./.github/workflows/deploy-staging/deploy-staging.yml
+
+  manual-approve:
+    needs: deploy-staging
+    uses: ./.github/workflows/manual-approve/manual-approve.yml
+
+  deploy-prod:
+    needs: manual-approve
+    uses: ./.github/workflows/deploy-prod/deploy-prod.yml
