@@ -1,0 +1,33 @@
+name: main-workflow
+
+on: [push, pull_request, workflow_dispatch]
+
+permissions: write-all
+
+jobs:
+  build-and-test:
+    uses: ./build-and-test/maven-build-and-test.yml
+
+  sonarqube-scan:
+    needs: build-and-test
+    uses: ./sonarqube-scan/sonarqube-scan-java.yml
+
+  ecr-login-and-push:
+        needs: sonarqube-scan
+        uses: ./aws-ecr/ecr-login-and-push.yml
+
+  deploy-dev:
+    needs: ecr-login-and-push
+    uses: ./deploy-dev/deploy-dev.yml
+
+  deploy-staging:
+    needs: deploy-dev
+    uses: ./deploy-staging/deploy-staging.yml
+
+  manual-approve:
+    needs: deploy-staging
+    uses: ./manual-approve/manual-approve.yml
+
+  deploy-prod:
+    needs: manual-approve
+    uses: ./deploy-prod/deploy-prod.yml
