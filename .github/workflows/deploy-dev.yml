@@ -1,7 +1,11 @@
 name: Deploy to Dev
 
-runs-on: ubuntu-latest
+on:
+  workflow_call:
 
-steps:
-  - name: Deploy
-    run: echo "Deploying to ECS dev..."
+jobs:
+  deploy-staging:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploy
+      run: echo "Deploying to ECS dev..."
