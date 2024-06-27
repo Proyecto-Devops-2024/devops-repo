@@ -15,26 +15,26 @@ jobs:
 
   sonarqube-scan:
     needs: build-and-test
-    uses: ./.github/workflows/sonarqube/sonarqube-scan-java.yml
+    uses: ./.github/workflows/sonarqube-scan-java.yml
     with:
       sonar_project_key: Proyecto-Devops-2024_orders-service
 
   ecr-login-and-push:
     needs: sonarqube-scan
-    uses: ./.github/workflows/aws-ecr/ecr-login-and-push.yml
+    uses: ./.github/workflows/ecr-login-and-push.yml
 
   deploy-dev:
     needs: ecr-login-and-push
-    uses: ./.github/workflows/deploy-dev/deploy-dev.yml
+    uses: ./.github/workflows/deploy-dev.yml
 
   deploy-staging:
     needs: deploy-dev
-    uses: ./.github/workflows/deploy-staging/deploy-staging.yml
+    uses: ./.github/workflows/deploy-staging.yml
 
   manual-approve:
     needs: deploy-staging
-    uses: ./.github/workflows/manual-approve/manual-approve.yml
+    uses: ./.github/workflows/manual-approve.yml
 
   deploy-prod:
     needs: manual-approve
-    uses: ./.github/workflows/deploy-prod/deploy-prod.yml
+    uses: ./.github/workflows/deploy-prod.yml
