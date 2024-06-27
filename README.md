@@ -119,36 +119,31 @@ Empaquetado
 Dockerfile
 ```markdown
 FROM openjdk:8-jdk-alpine
-ARG target/JAR_FILE
+ARG JAR_FILE
 COPY ${JAR_FILE} app.jar
 CMD java -jar /app.jar $APP_ARGS
 ```
 
 Crear imagen
 ```markdown
-docker build --build-arg JAR_FILE=orders-service-example.jar -t orders-service-example:1 .
+docker build --build-arg JAR_FILE=target/payments-service-example-0.0.1-SNAPSHOT.jar -t payments-service-example:1 .
 ```
-Crear contenedor
+Crear contenedor y ejecutarlo
 
 ```markdown
-docker run -d --name orders-store-example orders-store-example:1
-```
-
-Obtener ip del servicio(Inspect)
-
-```markdown
-docker inspect orders-store-example
-```
-
-Ejecutar contenedor
-
-```markdown
-docker run -d -p 8080:8080 orders-service-example:latest
+docker run -d -p 8080:8080 --name payments-service-example payments-service-example:1
 ```
 
 ```markdown
-docker run -d --name orders-service-example --env "APP_ARGS=http://172.17.0.2:8080 http://172.17.0.2:8080 http://172.17.0.2:8080" orders-service-example:1
+docker run -d --name payments-service-example --env "APP_ARGS=http://172.17.0.2:8080 http://172.17.0.2:8080 http://172.17.0.2:8080" orders-service-example:1
 ```
+Obtener ip del contenedor(Inspect)
+
+```markdown
+docker inspect payments-service-example
+```
+
+
 
 # Tablero Kanban
 ### Inicio Semana 1
