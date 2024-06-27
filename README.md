@@ -128,6 +128,18 @@ Crear imagen
 ```markdown
 docker build --build-arg JAR_FILE=orders-service-example.jar -t orders-service-example:1 .
 ```
+Crear contenedor
+
+```markdown
+docker run -d --name orders-store-example orders-store-example:1
+```
+
+Obtener ip del servicio(Inspect)
+
+```markdown
+docker inspect orders-store-example
+```
+
 Ejecutar contenedor
 
 ```markdown
