@@ -4,7 +4,7 @@ on:
   workflow_call:
 
 jobs:
-  build-and-test:
+  ecr-login-and-push:
     runs-on: ubuntu-latest
     - name: Checkout code
         uses: actions/checkout@v3
