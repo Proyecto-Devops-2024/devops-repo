@@ -1,0 +1,7 @@
+name: Deploy to Dev
+
+runs-on: ubuntu-latest
+
+steps:
+  - name: Deploy
+    run: echo "Deploying to ECS dev..."
