@@ -6,7 +6,7 @@ on:
       sonar_project_key:
         required: true
         type: string
-        
+
 permissions: write-all
 
 jobs:
@@ -17,7 +17,7 @@ jobs:
     needs: build-and-test
     uses: ./.github/workflows/sonarqube-scan-java.yml
     with:
-      sonar_project_key: Proyecto-Devops-2024_orders-service
+      sonar_project_key: ${{ inputs.sonar_project_key }}
 
   ecr-login-and-push:
     needs: sonarqube-scan
