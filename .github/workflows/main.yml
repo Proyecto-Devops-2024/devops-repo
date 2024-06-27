@@ -2,7 +2,11 @@ name: main-workflow
 
 on:
     workflow_call:
-
+        inputs:
+            sonar_project_key:
+              required: true
+              type: string
+              
 permissions: write-all
 
 jobs:
