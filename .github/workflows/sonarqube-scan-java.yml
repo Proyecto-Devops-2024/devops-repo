@@ -11,8 +11,10 @@ jobs:
   sonarqube-scan:
     runs-on: ubuntu-latest
     steps:
+
       - name: Check input
-        run: echo "${{ inputs.sonar_project_key }}"
+        run: |
+          echo "${{ inputs.sonar_project_key }}" && echo "${{ secrets.SONAR_TOKEN }}" 
 
       - uses: actions/checkout@v3
         with:
