@@ -1,7 +1,11 @@
 name: Deploy to Prod
 
-runs-on: ubuntu-latest
+on:
+  workflow_call:
 
-steps:
-  - name: Deploy
-    run: echo "Deploying to ECS prod..."
+jobs:
+  deploy-staging:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploy
+      run: echo "Deploying to ECS prod..."
