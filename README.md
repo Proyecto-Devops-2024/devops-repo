@@ -128,17 +128,18 @@ Crear imagen
 ```markdown
 docker build --build-arg JAR_FILE=target/payments-service-example-0.0.1-SNAPSHOT.jar -t payments-service-example:1 .
 ```
-Crear contenedor y ejecutarlo
 
+Crear contenedor y ejecutarlo
 ```markdown
 docker run -d -p 8080:8080 --name payments-service-example payments-service-example:1
 ```
 
+Crear contenedor y ejecutarlo conectando con el resto de servicios
 ```markdown
-docker run -d --name payments-service-example --env "APP_ARGS=http://172.17.0.2:8080 http://172.17.0.2:8080 http://172.17.0.2:8080" orders-service-example:1
+docker run -d --name orders-service-example --env "APP_ARGS=http://172.17.0.2:8080 http://172.17.0.3:8081 http://172.17.0.4:8082" orders-service-example:1
 ```
-Obtener ip del contenedor(Inspect)
 
+Obtener ip del contenedor(Inspect)
 ```markdown
 docker inspect payments-service-example
 ```
