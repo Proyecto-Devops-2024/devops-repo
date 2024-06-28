@@ -27,7 +27,7 @@ jobs:
           if [ -z "${{ secrets.SONAR_TOKEN }}" ]; then
             echo "SONAR_TOKEN is not set"
           else
-            sonar_token="${{ secrets.SONAR_TOKEN }}"
+            ${{ inputs.sonar_token }}="${{ secrets.SONAR_TOKEN }}"
           fi
 
   sonarqube-scan:
