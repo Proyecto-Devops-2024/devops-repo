@@ -24,19 +24,24 @@ jobs:
   ecr-login-and-push:
     needs: sonarqube-scan
     uses: ./.github/workflows/ecr-login-and-push.yml
+    secrets: inherit
 
   deploy-dev:
     needs: ecr-login-and-push
     uses: ./.github/workflows/deploy-dev.yml
+    secrets: inherit
 
   deploy-staging:
     needs: deploy-dev
     uses: ./.github/workflows/deploy-staging.yml
+    secrets: inherit
 
   manual-approve:
     needs: deploy-staging
     uses: ./.github/workflows/manual-approve.yml
+    secrets: inherit
 
   deploy-prod:
     needs: manual-approve
     uses: ./.github/workflows/deploy-prod.yml
+    secrets: inherit
