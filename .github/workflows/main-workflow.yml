@@ -16,20 +16,7 @@ jobs:
   build-and-test:
     uses: ./.github/workflows/maven-build-and-test.yml
   
-  check-secrets:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Check if SONAR_TOKEN is present
-        run: |
-          if [ -z "${{ secrets.SONAR_TOKEN }}" ]; then
-            echo "SONAR_TOKEN is not set"
-          else
-            echo "SONAR_TOKEN is set"
-          fi
-
+  
   sonarqube-scan:
     needs: build-and-test
     uses: ./.github/workflows/sonarqube-scan-java.yml
