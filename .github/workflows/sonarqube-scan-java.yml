@@ -6,19 +6,17 @@ on:
       sonar_project_key:
         required: true
         type: string
-
+      sonar_token:
+        required: true
+        type: string
 jobs:
   sonarqube-scan:
     runs-on: ubuntu-latest
     steps:
 
-      - name: Check if SONAR_TOKEN is present
+      - name: Check input
         run: |
-          if [ -z "${{ secrets.SONAR_TOKEN }}" ]; then
-            echo "SONAR_TOKEN is not set"
-          else
-            echo "SONAR_TOKEN is set"
-          fi
+          echo "${{ inputs.sonar_token }}" 
 
       - uses: actions/checkout@v3
         with:
@@ -43,5 +41,5 @@ jobs:
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_TOKEN: ${{ inputs.sonar_token }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=${{ inputs.sonar_project_key }} -Dsonar.organization=proyecto-devops-2024 -Dsonar.host.url=https://sonarcloud.io
