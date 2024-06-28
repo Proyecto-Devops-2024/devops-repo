@@ -12,6 +12,10 @@ on:
 permissions: write-all
 
 jobs:
+  
+  build-and-test:
+    uses: ./.github/workflows/maven-build-and-test.yml
+  
   check-secrets:
     runs-on: ubuntu-latest
     steps:
@@ -25,8 +29,6 @@ jobs:
           else
             echo "SONAR_TOKEN is set"
           fi
-  build-and-test:
-    uses: ./.github/workflows/maven-build-and-test.yml
 
   sonarqube-scan:
     needs: build-and-test
