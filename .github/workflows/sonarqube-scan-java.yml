@@ -12,9 +12,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - name: Check input
+      - name: Check if SONAR_TOKEN is present
         run: |
-          echo "${{ inputs.sonar_project_key }}" && echo "${{ secrets.SONAR_TOKEN }} ${{ secrets.SEBASTIAN_ORG_TESTING }}" 
+          if [ -z "${{ secrets.SONAR_TOKEN }}" ]; then
+            echo "SONAR_TOKEN is not set"
+          else
+            echo "SONAR_TOKEN is set"
+          fi
 
       - uses: actions/checkout@v3
         with:
