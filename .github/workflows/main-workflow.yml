@@ -36,6 +36,7 @@ jobs:
     with:
       sonar_project_key: ${{ inputs.sonar_project_key }}
       sonar_token: ${{ inputs.sonar_token }}
+    secrets: inherit  
 
   ecr-login-and-push:
     needs: sonarqube-scan
