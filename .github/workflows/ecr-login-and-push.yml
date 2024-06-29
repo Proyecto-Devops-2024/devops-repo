@@ -23,10 +23,10 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t orders-service:latest .
-          docker tag orders-service:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/orders-service:latest
+          docker build --build-arg JAR_FILE=./target/payments-service-example-0.0.1-SNAPSHOT.jar -t payments-service-example:latest .
+          docker tag payments-service-example:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/payments-service-ecr-repo:latest
 
       - name: Push to Amazon ECR
         run: |
-          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/orders-service:latest
+          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/payments-service-ecr-repo:latest
 
