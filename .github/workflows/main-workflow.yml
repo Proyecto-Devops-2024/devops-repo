@@ -6,6 +6,9 @@ on:
       sonar_project_key:
         required: true
         type: string
+      service_name:
+        required: true
+        type: string
 permissions: write-all
 
 jobs:
@@ -24,6 +27,8 @@ jobs:
   ecr-login-and-push:
     needs: sonarqube-scan
     uses: ./.github/workflows/ecr-login-and-push.yml
+    with:
+      service_name: ${{ inputs.service_name }}
     secrets: inherit
 
   deploy-dev:
