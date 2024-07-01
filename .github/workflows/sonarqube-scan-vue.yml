@@ -17,6 +17,7 @@ jobs:
             echo "SONAR_TOKEN is not set"
           else
             echo "SONAR_TOKEN is set"
+            echo ${{ inputs.sonar_project_key }}
           fi
       - uses: actions/checkout@v3
         with:
@@ -33,7 +34,7 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'  
-          
+
       - name: SonarQube Scan
         env:
             SONAR_HOST_URL: https://sonarcloud.io
