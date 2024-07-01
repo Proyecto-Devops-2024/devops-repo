@@ -31,22 +31,22 @@ jobs:
     secrets: inherit  
 
   
-  deploy-dev:
-    needs: build-and-test
-    uses: ./.github/workflows/deploy-S3-dev.yml
-    secrets: inherit
+  #deploy-dev:
+    #needs: build-and-test
+    #uses: ./.github/workflows/deploy-S3-dev.yml
+    #secrets: inherit
 
-  deploy-staging:
-    needs: deploy-dev
-    uses: ./.github/workflows/deploy-S3-staging.yml
-    secrets: inherit
+  #deploy-staging:
+    #needs: deploy-dev
+    #uses: ./.github/workflows/deploy-S3-staging.yml
+    #secrets: inherit
 
-  manual-approve:
-    needs: deploy-staging
-    uses: ./.github/workflows/manual-approve.yml
-    secrets: inherit
+  #manual-approve:
+    #needs: deploy-staging
+    #uses: ./.github/workflows/manual-approve.yml
+    #secrets: inherit
 
-  deploy-prod:
-    needs: manual-approve
-    uses: ./.github/workflows/deploy-s3-prod.yml
-    secrets: inherit
+  #deploy-prod:
+    #needs: manual-approve
+    #uses: ./.github/workflows/deploy-s3-prod.yml
+    #secrets: inherit
