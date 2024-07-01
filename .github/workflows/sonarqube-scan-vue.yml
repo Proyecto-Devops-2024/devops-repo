@@ -27,7 +27,13 @@ jobs:
             node-version: '16'
       - name: Install dependencies
         run: npm install     
-        
+       
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'  
+          
       - name: SonarQube Scan
         env:
             SONAR_HOST_URL: https://sonarcloud.io
