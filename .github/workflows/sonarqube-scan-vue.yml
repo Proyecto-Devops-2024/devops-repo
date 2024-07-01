@@ -1,0 +1,29 @@
+name: SonarQube Scan
+on:
+    workflow_call:
+      inputs:
+        sonar_project_key:
+          required: true
+          type: string
+jobs:
+  sonarqube-scan:
+    
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Check if SONAR_TOKEN is present
+        run: |
+          if [ -z "${{ secrets.SONAR_TOKEN }}" ]; then
+            echo "SONAR_TOKEN is not set"
+          else
+            echo "SONAR_TOKEN is set"
+          fi
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
