@@ -40,10 +40,12 @@ jobs:
             SONAR_HOST_URL: https://sonarcloud.io
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
             projectKey: ${{ inputs.sonar_project_key }}
+            SONAR_ORGANIZATION: ${{ secrets.SONAR_ORGANIZATION }}
         run: |
             npm install -g sonar-scanner
             sonar-scanner \
             -Dsonar.projectKey=projectKey \
+            -Dsonar.organization=SONAR_ORGANIZATION \
             -Dsonar.sources=./src \
             -Dsonar.host.url=$SONAR_HOST_URL \
             -Dsonar.login=$SONAR_TOKEN
