@@ -22,8 +22,15 @@ jobs:
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
+      - name: SonarQube Scan
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+            SONAR_HOST_URL: https://sonarcloud.io
+            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+            projectKey: ${{ inputs.sonar_project_key }}
+        run: |
+            npm install -g sonar-scanner
+            sonar-scanner \
+            -Dsonar.projectKey=projectKey \
+            -Dsonar.sources=./src \
+            -Dsonar.host.url=$SONAR_HOST_URL \
+            -Dsonar.login=$SONAR_TOKEN
