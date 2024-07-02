@@ -32,7 +32,7 @@ jobs:
   
   deploy-dev:
     needs: build-and-test
-    uses: ./.github/workflows/deploy-S3.yml
+    uses: ./.github/workflows/deploy-s3.yml
     with:
       environment: dev
       s3_bucket: ${{ secrets.S3_BUCKET_DEV }}
@@ -40,7 +40,7 @@ jobs:
 
   deploy-test:
     needs: deploy-dev
-    uses: ./.github/workflows/deploy-S3.yml
+    uses: ./.github/workflows/deploy-s3.yml
     with:
       environment: test
       s3_bucket: ${{ secrets.S3_BUCKET_TEST }}
