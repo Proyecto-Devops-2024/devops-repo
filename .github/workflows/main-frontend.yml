@@ -47,13 +47,17 @@ jobs:
     secrets: inherit
 
 
-  #manual-approve:
-    #needs: deploy-staging
-    #uses: ./.github/workflows/manual-approve.yml
-    #secrets: inherit
+  manual-approve:
+    needs: deploy-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Await manual approval
+        uses: hmarr/auto-approve-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
   deploy-prod:
-    needs: deploy-test
+    needs: manual-approve
     uses: ./.github/workflows/deploy-s3.yml
     with:
       environment: prod
