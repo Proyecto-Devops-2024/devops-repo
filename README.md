@@ -34,10 +34,9 @@ A diferencia de las ramas para microservicios, todas las modificaciones de códi
 
 # SECRETS ORGANIZACIÓN
 
-ORDERS_ECR_URI = 931481537897.dkr.ecr.us-east-1.amazonaws.com/orders-service-ecr-repo
-PAYMENTS_ECR_URI = 931481537897.dkr.ecr.us-east-1.amazonaws.com/payments-service-ecr-repo
-PRODUCTS_ECR_URI = 931481537897.dkr.ecr.us-east-1.amazonaws.com/products-service-ecr-repo
-SHIPPING_ECR_URI = 931481537897.dkr.ecr.us-east-1.amazonaws.com/shipping-service-ecr-repo
+S3_BUCKET_DEV - dev-devapp-devops-bucket
+S3_BUCKET_TEST - test-testapp-devops-bucket
+S3_BUCKET_PROD - prod-prodapp-devops-bucket
 
 # TRUNK-BASED
 Trabajando con feature branches y pull requests en trunk-based development:
