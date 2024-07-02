@@ -31,7 +31,7 @@ jobs:
 
   
   deploy-dev:
-    needs: build-and-test
+    needs: sonarqube-scan
     uses: ./.github/workflows/deploy-s3.yml
     with:
       environment: dev
@@ -43,7 +43,7 @@ jobs:
     uses: ./.github/workflows/deploy-s3.yml
     with:
       environment: test
-      s3_bucket: ${{ secrets.S3_BUCKET_TEST }}
+      s3_bucket: "test-testapp-devops-bucket"
     secrets: inherit
 
 
