@@ -35,7 +35,7 @@ jobs:
     uses: ./.github/workflows/deploy-s3.yml
     with:
       environment: dev
-      s3_bucket: ${{ secrets.S3_BUCKET_DEV }}
+      s3_bucket: "dev-devapp-devops-bucket"
     secrets: inherit
 
   deploy-test:
@@ -57,5 +57,5 @@ jobs:
     uses: ./.github/workflows/deploy-s3.yml
     with:
       environment: prod
-      s3_bucket: ${{ secrets.S3_BUCKET_PROD }}
+      s3_bucket: "prod-prodapp-devops-bucket"
     secrets: inherit
