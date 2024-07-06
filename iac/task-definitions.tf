@@ -9,7 +9,7 @@ resource "aws_ecs_task_definition" "products_definition" {
   execution_role_arn       = "arn:aws:iam::931481537897:role/LabRole"
 
   container_definitions = jsonencode([{
-    name      = "products-task-definition"
+    name      = "dev-products-container"
     image     = "931481537897.dkr.ecr.us-east-1.amazonaws.com/products-service-ecr-repo:latest"
     cpu       = 0
     essential = true
@@ -93,7 +93,7 @@ resource "aws_ecs_task_definition" "payments_definition" {
   execution_role_arn       = "arn:aws:iam::931481537897:role/LabRole"
 
   container_definitions = jsonencode([{
-    name      = "payments-task-definition"
+    name      = "dev-payments-container"
     image     = "931481537897.dkr.ecr.us-east-1.amazonaws.com/payments-service-ecr-repo:latest"
     cpu       = 0
     essential = true

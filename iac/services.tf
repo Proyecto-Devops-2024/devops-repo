@@ -7,8 +7,8 @@ resource "aws_ecs_service" "dev_payments_service" {
 
   load_balancer {
     target_group_arn = aws_lb_target_group.dev_payments_tg.arn
-    container_name   = "dev-payments-service"
-    container_port   = 80
+    container_name   = "dev-payments-container"  
+    container_port   = 8080  
   }
 
   network_configuration {
@@ -67,6 +67,11 @@ resource "aws_ecs_service" "dev_products_service" {
   task_definition = aws_ecs_task_definition.products_definition.arn
   desired_count   = 1
   launch_type     = "FARGATE"
+  load_balancer {
+    target_group_arn = aws_lb_target_group.dev_products_tg.arn
+    container_name   = "dev-products-container"  
+    container_port   = 8080  
+  }
   network_configuration {
     subnets          = [aws_subnet.vpc-ecs-public-subnet["dev"].id]
     security_groups  = [aws_security_group.ecs-contenedores-sg["dev"].id]
@@ -75,7 +80,12 @@ resource "aws_ecs_service" "dev_products_service" {
   tags = {
     Environment = "PRODUCTS DEV ECS SERVICE"
   }
-  depends_on = [aws_ecs_task_definition.products_definition]
+  depends_on = [
+    aws_ecs_task_definition.payments_definition,
+    aws_lb.dev_payments_lb,
+    aws_lb_target_group.dev_payments_tg,
+    aws_lb_listener.dev_payments_listener
+  ]
 }
 
 resource "aws_ecs_service" "test_products_service" {
