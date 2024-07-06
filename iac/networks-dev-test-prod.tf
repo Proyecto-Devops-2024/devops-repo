@@ -3,23 +3,31 @@ variable "environments" {
   type = map(object({
     cidr_block        = string
     subnet_cidr       = string
+    subnet_cidr2       = string
     availability_zone = string
+    availability_zone2 = string
   }))
   default = {
     dev = {
       cidr_block        = "10.1.0.0/16"
       subnet_cidr       = "10.1.1.0/24"
+      subnet_cidr2       = "10.1.2.0/24"
       availability_zone = "us-east-1a"
+      availability_zone2 = "us-east-1b"
     },
     test = {
       cidr_block        = "10.2.0.0/16"
       subnet_cidr       = "10.2.1.0/24"
+      subnet_cidr2       = "10.2.2.0/24"
       availability_zone = "us-east-1b"
+      availability_zone2 = "us-east-1a"
     },
     prod = {
       cidr_block        = "10.3.0.0/16"
       subnet_cidr       = "10.3.1.0/24"
+      subnet_cidr2       = "10.3.2.0/24"
       availability_zone = "us-east-1c"
+      availability_zone2 = "us-east-1a"
     }
   }
 }
@@ -47,6 +55,19 @@ resource "aws_subnet" "vpc-ecs-public-subnet" {
 
   tags = {
     "Name" = "subnet-ecs-${each.key}"
+  }
+}
+
+resource "aws_subnet" "vpc-ecs-public-subnet-secundary" {
+  for_each = var.environments
+
+  vpc_id                  = aws_vpc.vpc-ecs[each.key].id
+  cidr_block              = each.value.subnet_cidr2
+  availability_zone       = each.value.availability_zone2
+  map_public_ip_on_launch = true
+
+  tags = {
+    "Name" = "subnet-ecs-${each.key}-secundaria"
   }
 }
 
