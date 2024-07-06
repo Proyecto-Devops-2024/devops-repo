@@ -32,7 +32,7 @@ resource "aws_ecs_task_definition" "products_definition" {
     }
   }])
   runtime_platform {
-    cpu_architecture       = "X86_64"
+    cpu_architecture        = "X86_64"
     operating_system_family = "LINUX"
   }
   tags = {
@@ -74,7 +74,7 @@ resource "aws_ecs_task_definition" "shipping_definition" {
     }
   }])
   runtime_platform {
-    cpu_architecture       = "X86_64"
+    cpu_architecture        = "X86_64"
     operating_system_family = "LINUX"
   }
   tags = {
@@ -116,7 +116,7 @@ resource "aws_ecs_task_definition" "payments_definition" {
     }
   }])
   runtime_platform {
-    cpu_architecture       = "X86_64"
+    cpu_architecture        = "X86_64"
     operating_system_family = "LINUX"
   }
   tags = {

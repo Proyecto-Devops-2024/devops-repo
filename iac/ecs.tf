@@ -2,7 +2,7 @@
 variable "ambientes" {
   description = "Lista de entornos"
   type        = map(any)
-  default     = {
+  default = {
     dev  = { name = "dev" }
     test = { name = "test" }
     prod = { name = "prod" }
