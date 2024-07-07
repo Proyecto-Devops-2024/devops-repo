@@ -34,10 +34,7 @@ jobs:
       - name: Log in to Amazon ECR
         id: ecr-login
         uses: aws-actions/amazon-ecr-login@v1
-      - name: Obtain current task definition
-        id: get-task-def
-        run: |
-          aws ecs describe-task-definition --task-definition your-task-definition --region us-east-1 > current-task-def.json
+      
           
       - name: Register new task definition
         id: register-task-def
