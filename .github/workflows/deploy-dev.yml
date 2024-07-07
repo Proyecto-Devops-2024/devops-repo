@@ -19,41 +19,44 @@ jobs:
   deploy-dev:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v4
-      
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
-        aws-region: us-east-1  
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
 
-    - name: Log in to Amazon ECR
-      id: ecr-login
-      uses: aws-actions/amazon-ecr-login@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: us-east-1
 
-    - name: Register new task definition
-      id: register-task-def
-      run: |
-        echo '${{ secrets.ECS_PRODUCTS_TD_JSON }}' > task-definition.json
-        aws ecs register-task-definition --cli-input-json file://task-definition.json --region us-east-1 > task-def-response.json
-      env:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
-        aws-region: us-east-1  
-      outputs:
-        task-definition-arn: ${{ steps.register-task-def.outputs.task-definition-arn }}
+      - name: Log in to Amazon ECR
+        id: ecr-login
+        uses: aws-actions/amazon-ecr-login@v1
+      - name: Obtain current task definition
+        id: get-task-def
+        run: |
+          aws ecs describe-task-definition --task-definition your-task-definition --region us-east-1 > task-definition.json
+            
+      - name: Modify TD
+        id: register-task-def
+        run: |
+          
+          aws ecs register-task-definition --cli-input-json file://task-definition.json --region us-east-1 > task-def-response.json
+        env:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: us-east-1
+       outputs:
+          task-definition-arn: ${{ steps.register-task-def.outputs.task-definition-arn }}
 
-    - name: Deploy service to ECS
-      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-      with:
-        cluster: dev-ecs-cluster
-        service: dev-${{ inputs.service_name }}-service
-        task-definition: ${{ steps.register-task-def.outputs.task-definition-arn }}
-        force-new-deployment: true
-        wait-for-service-stability: true
-        
+      - name: Deploy service to ECS
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          cluster: dev-ecs-cluster
+          service: dev-${{ inputs.service_name }}-service
+          task-definition: ${{ steps.register-task-def.outputs.task-definition-arn }}
+          force-new-deployment: true
+          wait-for-service-stability: true
