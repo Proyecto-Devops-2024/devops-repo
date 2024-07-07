@@ -2,10 +2,51 @@ name: Deploy to Dev
 
 on:
   workflow_call:
-
+    inputs:
+      service_name:
+        required: true
+        type: string
+    secrets:
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
+      AWS_SESSION_TOKEN:
+        required: true
+      AWS_ACCOUNT_ID:
+        required: true
 jobs:
   deploy-staging:
     runs-on: ubuntu-latest
     steps:
-    - name: Deploy
-      run: echo "Deploying to ECS dev..."
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+        aws-region: us-east-1  
+
+    - name: Log in to Amazon ECR
+      id: ecr-login
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Register new task definition
+      id: register-task-def
+      run: |
+        echo '${{ secrets.ECS_PRODUCTS_TD_JSON }}' > task-definition.json
+        aws ecs register-task-definition --cli-input-json file://task-definition.json --region us-east-1 
+
+    - name: Deploy service to ECS
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+      with:
+        cluster: dev-ecs-cluster
+        service: DEV-${{ inputs.service_name }}-service
+        task-definition: ${{ steps.register-task-def.outputs.task-definition-arn }}
+        force-new-deployment: true
+        wait-for-service-stability: true
+        
