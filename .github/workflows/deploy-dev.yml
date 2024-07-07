@@ -41,6 +41,7 @@ jobs:
 
           aws ecs describe-services --cluster dev-ecs-cluster --service dev-${{ inputs.service_name }}-service --region us-east-1 > task-definition.json
 
+          cat task-definition.json
           
 
       - name: Modify TD
