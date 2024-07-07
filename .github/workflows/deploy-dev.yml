@@ -16,7 +16,7 @@ on:
       AWS_ACCOUNT_ID:
         required: true
 jobs:
-  deploy-staging:
+  deploy-dev:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
@@ -39,7 +39,7 @@ jobs:
       id: register-task-def
       run: |
         echo '${{ secrets.ECS_PRODUCTS_TD_JSON }}' > task-definition.json
-        aws ecs register-task-definition --cli-input-json file://task-definition.json --region us-east-1 
+        aws ecs register-task-definition --cli-input-json file://task-definition.json --region us-east-1 > task-def-response.json
         TASK_DEF_ARN=$(jq -r '.taskDefinition.taskDefinitionArn' task-def-response.json)
         echo "TASK_DEF_ARN=${TASK_DEF_ARN}" >> $GITHUB_ENV
 
