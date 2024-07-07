@@ -9,7 +9,7 @@ resource "aws_ecs_task_definition" "products_definition" {
   execution_role_arn       = "arn:aws:iam::931481537897:role/LabRole"
 
   container_definitions = jsonencode([{
-    name      = "products-task-definition"
+    name      = "products-container"
     image     = "931481537897.dkr.ecr.us-east-1.amazonaws.com/products-service-ecr-repo:latest"
     cpu       = 0
     essential = true
@@ -51,7 +51,7 @@ resource "aws_ecs_task_definition" "shipping_definition" {
   execution_role_arn       = "arn:aws:iam::931481537897:role/LabRole"
 
   container_definitions = jsonencode([{
-    name      = "shipping-task-definition"
+    name      = "shipping-container"
     image     = "931481537897.dkr.ecr.us-east-1.amazonaws.com/shipping-service-ecr-repo:latest"
     cpu       = 0
     essential = true
@@ -93,7 +93,7 @@ resource "aws_ecs_task_definition" "payments_definition" {
   execution_role_arn       = "arn:aws:iam::931481537897:role/LabRole"
 
   container_definitions = jsonencode([{
-    name      = "payments-task-definition"
+    name      = "payments-container"
     image     = "931481537897.dkr.ecr.us-east-1.amazonaws.com/payments-service-ecr-repo:latest"
     cpu       = 0
     essential = true
@@ -134,7 +134,7 @@ resource "aws_ecs_task_definition" "orders_definition" {
   execution_role_arn       = "arn:aws:iam::931481537897:role/LabRole"
 
   container_definitions = jsonencode([{
-    name      = "orders"
+    name      = "orders-container"
     image     = "931481537897.dkr.ecr.us-east-1.amazonaws.com/orders-service-ecr-repo:latest"
     cpu       = 0
     essential = true
@@ -148,7 +148,7 @@ resource "aws_ecs_task_definition" "orders_definition" {
 
     environment = [{
       name  = "APP_ARGS"
-      value = "http://172.17.0.2:8080 http://172.17.0.2:8080 http://172.17.0.2:8080"
+      value = "dev-payments-lb-1350613012.us-east-1.elb.amazonaws.com dev-shipping-lb-1454690909.us-east-1.elb.amazonaws.com dev-products-lb-1057831227.us-east-1.elb.amazonaws.com"
     }]
 
     logConfiguration = {

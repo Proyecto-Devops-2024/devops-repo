@@ -1,9 +1,18 @@
+########### PAYMENTS SERVICE ##########
+
 resource "aws_ecs_service" "dev_payments_service" {
   name            = "dev-payments-service"
   cluster         = aws_ecs_cluster.ecs_cluster["dev"].name
   task_definition = aws_ecs_task_definition.payments_definition.arn
   desired_count   = 1
   launch_type     = "FARGATE"
+
+  load_balancer {
+    target_group_arn = aws_lb_target_group.dev_payments_tg.arn
+    container_name   = "payments-container"  
+    container_port   = 8080  
+  }
+
   network_configuration {
     subnets          = [aws_subnet.vpc-ecs-public-subnet["dev"].id]
     security_groups  = [aws_security_group.ecs-contenedores-sg["dev"].id]
@@ -12,7 +21,12 @@ resource "aws_ecs_service" "dev_payments_service" {
   tags = {
     Environment = "PAYMENTS DEV ECS SERVICE"
   }
-  depends_on = [aws_ecs_task_definition.payments_definition]
+  depends_on = [
+    aws_ecs_task_definition.payments_definition,
+    aws_lb.dev_payments_lb,
+    aws_lb_target_group.dev_payments_tg,
+    aws_lb_listener.dev_payments_listener
+  ]
 }
 
 resource "aws_ecs_service" "test_payments_service" {
@@ -49,12 +63,20 @@ resource "aws_ecs_service" "prod_payments_service" {
   depends_on = [aws_ecs_task_definition.payments_definition]
 }
 
+
+########### PRODUCTS SERVICE ##########
+
 resource "aws_ecs_service" "dev_products_service" {
   name            = "dev-products-service"
   cluster         = aws_ecs_cluster.ecs_cluster["dev"].name
   task_definition = aws_ecs_task_definition.products_definition.arn
   desired_count   = 1
   launch_type     = "FARGATE"
+  load_balancer {
+    target_group_arn = aws_lb_target_group.dev_products_tg.arn
+    container_name   = "products-container"  
+    container_port   = 8080  
+  }
   network_configuration {
     subnets          = [aws_subnet.vpc-ecs-public-subnet["dev"].id]
     security_groups  = [aws_security_group.ecs-contenedores-sg["dev"].id]
@@ -63,7 +85,12 @@ resource "aws_ecs_service" "dev_products_service" {
   tags = {
     Environment = "PRODUCTS DEV ECS SERVICE"
   }
-  depends_on = [aws_ecs_task_definition.products_definition]
+  depends_on = [
+    aws_ecs_task_definition.payments_definition,
+    aws_lb.dev_payments_lb,
+    aws_lb_target_group.dev_payments_tg,
+    aws_lb_listener.dev_payments_listener
+  ]
 }
 
 resource "aws_ecs_service" "test_products_service" {
@@ -100,12 +127,19 @@ resource "aws_ecs_service" "prod_products_service" {
   depends_on = [aws_ecs_task_definition.products_definition]
 }
 
+########### SHIPPING SERVICE ##########
+
 resource "aws_ecs_service" "dev_shipping_service" {
   name            = "dev-shipping-service"
   cluster         = aws_ecs_cluster.ecs_cluster["dev"].name
   task_definition = aws_ecs_task_definition.shipping_definition.arn
   desired_count   = 1
   launch_type     = "FARGATE"
+  load_balancer {
+    target_group_arn = aws_lb_target_group.dev_shipping_tg.arn
+    container_name   = "shipping-container"  
+    container_port   = 8080  
+  }
   network_configuration {
     subnets          = [aws_subnet.vpc-ecs-public-subnet["dev"].id]
     security_groups  = [aws_security_group.ecs-contenedores-sg["dev"].id]
@@ -151,12 +185,19 @@ resource "aws_ecs_service" "prod_shipping_service" {
   depends_on = [aws_ecs_task_definition.shipping_definition]
 }
 
+########### ORDERS SERVICE ##########
+
 resource "aws_ecs_service" "dev_orders_service" {
   name            = "dev-orders-service"
   cluster         = aws_ecs_cluster.ecs_cluster["dev"].name
   task_definition = aws_ecs_task_definition.orders_definition.arn
   desired_count   = 1
   launch_type     = "FARGATE"
+  load_balancer {
+    target_group_arn = aws_lb_target_group.dev_orders_tg.arn
+    container_name   = "orders-container"  
+    container_port   = 8080  
+  }
   network_configuration {
     subnets          = [aws_subnet.vpc-ecs-public-subnet["dev"].id]
     security_groups  = [aws_security_group.ecs-contenedores-sg["dev"].id]
