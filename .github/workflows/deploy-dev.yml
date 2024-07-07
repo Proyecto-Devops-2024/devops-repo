@@ -40,13 +40,15 @@ jobs:
       run: |
         echo '${{ secrets.ECS_PRODUCTS_TD_JSON }}' > task-definition.json
         aws ecs register-task-definition --cli-input-json file://task-definition.json --region us-east-1 
+        TASK_DEF_ARN=$(jq -r '.taskDefinition.taskDefinitionArn' task-def-response.json)
+        echo "TASK_DEF_ARN=${TASK_DEF_ARN}" >> $GITHUB_ENV
 
     - name: Deploy service to ECS
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
         cluster: dev-ecs-cluster
         service: DEV-${{ inputs.service_name }}-service
-        task-definition: ${{ steps.register-task-def.outputs.task-definition-arn }}
+        task-definition: ${{ env.TASK_DEF_ARN }}
         force-new-deployment: true
         wait-for-service-stability: true
         
