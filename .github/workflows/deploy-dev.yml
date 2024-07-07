@@ -34,16 +34,24 @@ jobs:
       - name: Log in to Amazon ECR
         id: ecr-login
         uses: aws-actions/amazon-ecr-login@v1
-      - name: Obtain current task definition
+
+      - name: Obtain current task definition to JSON
         id: get-task-def
         run: |
-          aws ecs describe-task-definition --task-definition your-task-definition --region us-east-1 > task-definition.json
+
+          aws ecs describe-services --cluster dev-ecs-cluster --service dev-${{ inputs.service_name }}-service --region us-east-1 > task-definition.json
+
+          
 
       - name: Modify TD
         id: register-task-def
         run: |
 
           aws ecs register-task-definition --cli-input-json file://task-definition.json --region us-east-1 > task-def-response.json
+
+          TASK_DEFINITION_ARN=$(jq -r '.taskDefinition.taskDefinitionArn' task-def-response.json)
+
+          echo "::set-output name=task-definition-arn::$TASK_DEFINITION_ARN"
         env:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
