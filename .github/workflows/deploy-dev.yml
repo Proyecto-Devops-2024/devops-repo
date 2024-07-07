@@ -53,6 +53,6 @@ jobs:
         with:
           cluster: dev-ecs-cluster
           service: dev-${{ inputs.service_name }}-service
-          task-definition: task-def-response.json
+          task-definition: ${{ secrets.ECS_PRODUCTS_TD_JSON }}
           force-new-deployment: true
           wait-for-service-stability: true
