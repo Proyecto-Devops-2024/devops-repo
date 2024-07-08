@@ -39,9 +39,10 @@ jobs:
         id: register-task-def
         run: >
           
-          aws ecs describe-task-definition --task-definition ${{ inputs.service_name }}-task-definition --query taskDefinition --output json
+          TASK_DEFINITION=$(aws ecs describe-task-definition --task-definition ${{ inputs.service_name }}-task-definition --query taskDefinition --output json)
+          NEW_TASK_DEFINTIION=$(echo $TASK_DEFINITION | jq ".taskDefinition | .containerDefinitions[0].image = \"${{ steps.ecr-login.outputs.registryId }}.dkr.ecr.us-east-1.amazonaws.com/${{ inputs.service_name }}-service-ecr-repo:latest\"")
           
-          jq ".taskDefinition" td-response.json > td.json
+          echo $NEW_TASK_DEFINTIION > td.json
           
           jq "del(.taskDefinitionArn, .revision, .status, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy)" td.json > td-dev.json
           
