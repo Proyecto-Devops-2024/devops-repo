@@ -39,10 +39,8 @@ jobs:
         id: register-task-def
         run: >
           
-          aws ecs describe-task-definition --task-definition ${{ inputs.service_name }}-task-definition --query taskDefinition > text.json
-          echo text.json
-          jq '.containerDefinitions[0].image='\"${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/${{ inputs.service_name }}-service-ecr-repo:latest\" text.json >> td-dev.json 
-          echo td-dev.json
+          aws ecs describe-task-definition --task-definition ${{ inputs.service_name }}-task-definition --output json > td-dev.json
+          
 
           aws ecs register-task-definition --cli-input-json
           file://td-dev.json --region us-east-1 
@@ -52,20 +50,12 @@ jobs:
           AWS_SESSION_TOKEN: '${{ secrets.AWS_SESSION_TOKEN }}'
           AWS_REGION: us-east-1
 
-      - name: Fill in the new image ID in the Amazon ECS task definition
-        id: task-def
-        uses: aws-actions/amazon-ecs-render-task-definition@v1
-        with:
-          task-definition: td-dev.json
-          container-name: ${{ inputs.service_name }}-service
-          image: ${{ steps.ecr-login.outputs.registry }}/${{ inputs.service_name }}-service-example:${{ github.sha }}
-
       - name: Deploy service to ECS
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           cluster: dev-ecs-cluster
           service: 'dev-${{ inputs.service_name }}-service'
-          task-definition: '${{ steps.register-task-def.outputs.task-definition-arn }}'
+          task-definition: td-dev.json
           force-new-deployment: true
           wait-for-service-stability: true
         env:
