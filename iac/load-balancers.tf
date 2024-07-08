@@ -20,14 +20,7 @@ resource "aws_lb_target_group" "dev_payments_tg" {
   protocol = "HTTP"
   vpc_id   = aws_vpc.vpc-ecs["dev"].id
   target_type = "ip"
-  health_check {
-    interval            = 30
-    path                = "/"
-    protocol            = "HTTP"
-    timeout             = 5
-    healthy_threshold   = 5
-    unhealthy_threshold = 2
-  }
+  
 
   tags = {
     Name = "dev-payments-tg"
@@ -116,14 +109,7 @@ resource "aws_lb_target_group" "dev_shipping_tg" {
   protocol = "HTTP"
   vpc_id   = aws_vpc.vpc-ecs["dev"].id
   target_type = "ip"
-  health_check {
-    interval            = 30
-    path                = "/"
-    protocol            = "HTTP"
-    timeout             = 5
-    healthy_threshold   = 5
-    unhealthy_threshold = 2
-  }
+  
 
   tags = {
     Name = "dev-shipping-tg"
@@ -163,14 +149,7 @@ resource "aws_lb_target_group" "dev_orders_tg" {
   protocol = "HTTP"
   vpc_id   = aws_vpc.vpc-ecs["dev"].id
   target_type = "ip"
-  health_check {
-    interval            = 30
-    path                = "/"
-    protocol            = "HTTP"
-    timeout             = 5
-    healthy_threshold   = 5
-    unhealthy_threshold = 2
-  }
+  
 
   tags = {
     Name = "dev-orders-tg"
