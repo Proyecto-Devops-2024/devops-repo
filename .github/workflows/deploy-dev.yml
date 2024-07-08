@@ -40,10 +40,11 @@ jobs:
         run: >
           
           aws ecs describe-task-definition --task-definition ${{ inputs.service_name }}-task-definition --output json > td-response.json
-          
+          echo td-response.json
           jq '.taskDefinition' td-response.json > td.json
+          echo td.json
           jq 'del(.taskDefinitionArn, .revision, .status, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy)' td.json > td-dev.json
-
+          echo td-dev.json
           aws ecs register-task-definition --cli-input-json
           file://td-dev.json --region us-east-1 
         env:
