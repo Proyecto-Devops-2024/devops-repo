@@ -39,7 +39,7 @@ jobs:
         id: register-task-def
         run: >
           
-          aws ecs describe-task-definition --task-definition ${{ inputs.service_name }}-task-definition --output json > td-response.json
+          aws ecs describe-task-definition --task-definition ${{ inputs.service_name }}-task-definition --query taskDefinition --output json > td-response.json
           echo td-response.json
           jq ".taskDefinition" td-response.json > td.json
           echo td.json
