@@ -37,17 +37,24 @@ jobs:
         
       - name: Register new task definition
         id: register-task-def
-        run: >
+        run: |
           
+          echo "Fetching current task definition..."
           TASK_DEFINITION=$(aws ecs describe-task-definition --task-definition ${{ inputs.service_name }}-task-definition --query taskDefinition --output json)
-          NEW_TASK_DEFINTIION=$(echo $TASK_DEFINITION | jq ".taskDefinition | .containerDefinitions[0].image = \"${{ steps.ecr-login.outputs.registryId }}.dkr.ecr.us-east-1.amazonaws.com/${{ inputs.service_name }}-service-ecr-repo:latest\"")
-          
-          echo $NEW_TASK_DEFINTIION
-          echo $NEW_TASK_DEFINTIION > td.json
-          jq "del(.taskDefinitionArn, .revision, .status, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy)" td.json > td-dev.json
-          
-          aws ecs register-task-definition --cli-input-json
-          file://td-dev.json --region us-east-1 
+          echo "Current task definition fetched: $TASK_DEFINITION"
+    
+          echo "Updating container image..."
+          NEW_TASK_DEFINITION=$(echo $TASK_DEFINITION | jq '.containerDefinitions[0].image = "${{ steps.ecr-login.outputs.registryId }}.dkr.ecr.us-east-1.amazonaws.com/${{ inputs.service_name }}-service-ecr-repo:latest"')
+          echo "Updated task definition: $NEW_TASK_DEFINITION"
+    
+          echo "Saving updated task definition to td.json..."
+          echo "$NEW_TASK_DEFINITION" > td.json
+    
+          echo "Removing unnecessary fields..."
+          jq 'del(.taskDefinitionArn, .revision, .status, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy)' td.json > td-dev.json
+    
+          echo "Registering new task definition..."
+          aws ecs register-task-definition --cli-input-json file://td-dev.json --region us-east-1 
         env:
           AWS_ACCESS_KEY_ID: '${{ secrets.AWS_ACCESS_KEY_ID }}'
           AWS_SECRET_ACCESS_KEY: '${{ secrets.AWS_SECRET_ACCESS_KEY }}'
