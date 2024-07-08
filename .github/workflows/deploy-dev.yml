@@ -44,7 +44,7 @@ jobs:
           echo "Current task definition fetched: $TASK_DEFINITION"
     
           echo "Updating container image..."
-          NEW_TASK_DEFINITION=$(echo $TASK_DEFINITION | jq '.containerDefinitions[0].image = "${{ steps.ecr-login.outputs.registryId }}.dkr.ecr.us-east-1.amazonaws.com/${{ inputs.service_name }}-service-ecr-repo:latest"')
+          NEW_TASK_DEFINITION=$(echo $TASK_DEFINITION | jq '.containerDefinitions[0].image = "${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/${{ inputs.service_name }}-service-ecr-repo:latest"')
           echo "Updated task definition: $NEW_TASK_DEFINITION"
     
           echo "Saving updated task definition to td.json..."
