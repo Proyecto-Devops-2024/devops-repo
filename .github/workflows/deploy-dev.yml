@@ -39,8 +39,9 @@ jobs:
         id: register-task-def
         run: >
           
-          aws ecs describe-task-definition --task-definition ${{ inputs.service_name }}-task-definition --output json > td-dev.json
+          aws ecs describe-task-definition --task-definition ${{ inputs.service_name }}-task-definition --output json > td-response.json
           
+          jq '.taskDefinition' td-response.json > td-dev.json
 
           aws ecs register-task-definition --cli-input-json
           file://td-dev.json --region us-east-1 
