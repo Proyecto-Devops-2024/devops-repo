@@ -40,7 +40,7 @@ jobs:
         run: >
           
           aws ecs describe-task-definition --task-definition ${{ inputs.service_name }}-task-definition --query taskDefinition > text.json
-
+          echo text.json
           jq '.containerDefinitions[0].image='\"${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/${{ inputs.service_name }}-service-ecr-repo:latest\" text.json >> td-dev.json 
           echo td-dev.json
 
