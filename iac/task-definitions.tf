@@ -124,8 +124,8 @@ resource "aws_ecs_task_definition" "payments_definition" {
   }
 }
 
-resource "aws_ecs_task_definition" "orders_definition" {
-  family                   = "orders-task-definition"
+resource "aws_ecs_task_definition" "dev_orders_definition" {
+  family                   = "dev-orders-task-definition"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   cpu                      = "256"
@@ -148,7 +148,7 @@ resource "aws_ecs_task_definition" "orders_definition" {
 
     environment = [{
       name  = "APP_ARGS"
-      value = "dev-payments-lb-1350613012.us-east-1.elb.amazonaws.com dev-shipping-lb-1454690909.us-east-1.elb.amazonaws.com dev-products-lb-1057831227.us-east-1.elb.amazonaws.com"
+      value = "${aws_lb.dev_payments_lb.dns_name} ${aws_lb.dev_shipping_lb.dns_name} ${aws_lb.dev_products_lb.dns_name}"	
     }]
 
     logConfiguration = {
@@ -164,3 +164,82 @@ resource "aws_ecs_task_definition" "orders_definition" {
 }
 
 
+
+resource "aws_ecs_task_definition" "test_orders_definition" {
+  family                   = "test-orders-task-definition"
+  network_mode             = "awsvpc"
+  requires_compatibilities = ["FARGATE"]
+  cpu                      = "256"
+  memory                   = "512"
+  task_role_arn            = "arn:aws:iam::931481537897:role/LabRole"
+  execution_role_arn       = "arn:aws:iam::931481537897:role/LabRole"
+
+  container_definitions = jsonencode([{
+    name      = "orders-container"
+    image     = "931481537897.dkr.ecr.us-east-1.amazonaws.com/orders-service-ecr-repo:latest"
+    cpu       = 0
+    essential = true
+
+    portMappings = [{
+      containerPort = 8080
+      hostPort      = 8080
+      protocol      = "tcp"
+      appProtocol   = "http"
+    }]
+
+    environment = [{
+      name  = "APP_ARGS"
+      value = "http://172.17.0.2:8080 http://172.17.0.2:8080 http://172.17.0.3:8080"	
+    }]
+
+    logConfiguration = {
+      logDriver = "awslogs"
+      options = {
+        awslogs-group         = "/ecs/orders-task-definition"
+        awslogs-create-group  = "true"
+        awslogs-region        = "us-east-1"
+        awslogs-stream-prefix = "ecs"
+      }
+    }
+  }])
+}
+
+
+resource "aws_ecs_task_definition" "prod_orders_definition" {
+  family                   = "prod-orders-task-definition"
+  network_mode             = "awsvpc"
+  requires_compatibilities = ["FARGATE"]
+  cpu                      = "512"
+  memory                   = "1024"
+  task_role_arn            = "arn:aws:iam::931481537897:role/LabRole"
+  execution_role_arn       = "arn:aws:iam::931481537897:role/LabRole"
+
+  container_definitions = jsonencode([{
+    name      = "orders-container"
+    image     = "931481537897.dkr.ecr.us-east-1.amazonaws.com/orders-service-ecr-repo:latest"
+    cpu       = 0
+    essential = true
+
+    portMappings = [{
+      containerPort = 8080
+      hostPort      = 8080
+      protocol      = "tcp"
+      appProtocol   = "http"
+    }]
+
+    environment = [{
+      name  = "APP_ARGS"
+      value = "http://172.17.0.2:8080 http://172.17.0.2:8080 http://172.17.0.3:8080"	
+    }]
+
+    logConfiguration = {
+      logDriver = "awslogs"
+      options = {
+        awslogs-group         = "/ecs/orders-task-definition"
+        awslogs-create-group  = "true"
+        awslogs-region        = "us-east-1"
+        awslogs-stream-prefix = "ecs"
+      }
+    }
+  }])
+}

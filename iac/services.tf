@@ -190,7 +190,7 @@ resource "aws_ecs_service" "prod_shipping_service" {
 resource "aws_ecs_service" "dev_orders_service" {
   name            = "dev-orders-service"
   cluster         = aws_ecs_cluster.ecs_cluster["dev"].name
-  task_definition = aws_ecs_task_definition.orders_definition.arn
+  task_definition = aws_ecs_task_definition.dev_orders_definition.arn
   desired_count   = 1
   launch_type     = "FARGATE"
   load_balancer {
@@ -206,13 +206,13 @@ resource "aws_ecs_service" "dev_orders_service" {
   tags = {
     Environment = "ORDERS DEV ECS SERVICE"
   }
-  depends_on = [aws_ecs_task_definition.orders_definition]
+  depends_on = [aws_ecs_task_definition.dev_orders_definition]
 }
 
 resource "aws_ecs_service" "test_orders_service" {
   name            = "test-orders-service"
   cluster         = aws_ecs_cluster.ecs_cluster["test"].name
-  task_definition = aws_ecs_task_definition.orders_definition.arn
+  task_definition = aws_ecs_task_definition.test_orders_definition.arn
   desired_count   = 1
   launch_type     = "FARGATE"
   network_configuration {
@@ -223,13 +223,13 @@ resource "aws_ecs_service" "test_orders_service" {
   tags = {
     Environment = "ORDERS TEST ECS SERVICE"
   }
-  depends_on = [aws_ecs_task_definition.orders_definition]
+  depends_on = [aws_ecs_task_definition.test_orders_definition]
 }
 
 resource "aws_ecs_service" "prod_orders_service" {
   name            = "prod-orders-service"
   cluster         = aws_ecs_cluster.ecs_cluster["prod"].name
-  task_definition = aws_ecs_task_definition.orders_definition.arn
+  task_definition = aws_ecs_task_definition.prod_orders_definition.arn
   desired_count   = 1
   launch_type     = "FARGATE"
   network_configuration {
@@ -240,5 +240,5 @@ resource "aws_ecs_service" "prod_orders_service" {
   tags = {
     Environment = "ORDERS PROD ECS SERVICE"
   }
-  depends_on = [aws_ecs_task_definition.orders_definition]
+  depends_on = [aws_ecs_task_definition.prod_orders_definition]
 }

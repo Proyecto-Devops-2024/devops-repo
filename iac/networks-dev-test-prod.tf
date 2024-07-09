@@ -148,6 +148,14 @@ resource "aws_security_group" "ecs-contenedores-sg" {
     security_groups = [aws_security_group.ecs-load-balancers-sg[each.key].id]
   }
 
+  ingress {
+    description = "Allow Port 8080 TEMPORAL CONTENEDORES"
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   egress {
     description = "Allow all ip and ports outbound"
     from_port   = 0
