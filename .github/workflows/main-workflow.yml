@@ -52,6 +52,7 @@ jobs:
     uses: ./.github/workflows/deploy-test.yml
     with:
       service_name: ${{ inputs.service_name }}
+      environment: "test"
     secrets: inherit
 
   manual-approve:
