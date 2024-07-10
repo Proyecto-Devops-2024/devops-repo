@@ -65,4 +65,5 @@ jobs:
     uses: ./.github/workflows/deploy-prod.yml
     with:
       service_name: ${{ inputs.service_name }}
+      environment: "prod"
     secrets: inherit
