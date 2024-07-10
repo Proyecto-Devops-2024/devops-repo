@@ -44,6 +44,7 @@ jobs:
     uses: ./.github/workflows/deploy-dev.yml
     with:
       service_name: ${{ inputs.service_name }}
+      environment: "dev"
     secrets: inherit
 
   deploy-staging:
