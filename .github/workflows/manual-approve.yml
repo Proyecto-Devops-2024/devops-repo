@@ -1,11 +1,22 @@
-name: Deploy to Production
+name: Manual Approve
 
 on:
   workflow_call:
-
+env:
+  APPROVERS: "zionweb,Lucas991999, deploy-approvers"
 jobs:
-  deploy-staging:
+  approve:
+    #validate deploy only if we are deploying to staging or prod
+    if: inputs.CI_ENV == 'staging' || inputs.CI_ENV == 'prod'
     runs-on: ubuntu-latest
     steps:
-    - name: Deploy
-      run: echo "Deploying to ECS prod..."
+      - run: echo 'environment ${{ inputs.CI_ENV }}'
+      - uses: trstringer/manual-approval@v1.9.0
+        with:
+          secret: ${{ secrets.TOKEN_API }}
+          approvers: ${{ env.APPROVERS }}
+          issue-title: "Approve deploy to ${{ inputs.CI_ENV}}"
+          exclude-workflow-initiator-as-approver: false
+          # additional-approved-words: 'si'
+          # additional-denied-words: 'no'
+          minimum-approvals: 1
