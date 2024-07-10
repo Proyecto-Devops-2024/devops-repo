@@ -6,8 +6,7 @@ env:
   APPROVERS: "zionweb,Lucas991999, deploy-approvers"
 jobs:
   approve:
-    #validate deploy only if we are deploying to staging or prod
-    if: inputs.CI_ENV == 'staging' || inputs.CI_ENV == 'prod'
+    
     runs-on: ubuntu-latest
     steps:
       - run: echo 'environment ${{ inputs.CI_ENV }}'
@@ -15,7 +14,7 @@ jobs:
         with:
           secret: ${{ secrets.TOKEN_API }}
           approvers: ${{ env.APPROVERS }}
-          issue-title: "Approve deploy to ${{ inputs.CI_ENV}}"
+          issue-title: "APROBADO MANUALMENTE"
           exclude-workflow-initiator-as-approver: false
           # additional-approved-words: 'si'
           # additional-denied-words: 'no'
