@@ -48,7 +48,9 @@ jobs:
 
   deploy-staging:
     needs: deploy-dev
-    uses: ./.github/workflows/deploy-staging.yml
+    uses: ./.github/workflows/deploy-test.yml
+    with:
+      service_name: ${{ inputs.service_name }}
     secrets: inherit
 
   manual-approve:
@@ -59,4 +61,6 @@ jobs:
   deploy-prod:
     needs: manual-approve
     uses: ./.github/workflows/deploy-prod.yml
+    with:
+      service_name: ${{ inputs.service_name }}
     secrets: inherit
