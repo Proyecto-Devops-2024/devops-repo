@@ -15,8 +15,6 @@ on:
         required: true
       AWS_ACCOUNT_ID:
         required: true
-env:
-  ECS_TASK_DEFINITION: ${{ secrets.ECS_PRODUCTS_TD_JSON }}
 
 jobs:
   deploy-dev:
