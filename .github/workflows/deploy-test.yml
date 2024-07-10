@@ -1,4 +1,4 @@
-name: Deploy to Prod
+name: Deploy to Test
 
 on:
   workflow_call:
@@ -45,9 +45,9 @@ jobs:
                     
           echo "$NEW_TASK_DEFINITION" > td.json
           
-          jq 'del(.taskDefinitionArn, .revision, .status, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy)' td.json > td-prod.json
+          jq 'del(.taskDefinitionArn, .revision, .status, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy)' td.json > td-test.json
           
-          aws ecs register-task-definition --cli-input-json file://td-prod.json --region us-east-1 
+          aws ecs register-task-definition --cli-input-json file://td-test.json --region us-east-1 
         env:
           AWS_ACCESS_KEY_ID: '${{ secrets.AWS_ACCESS_KEY_ID }}'
           AWS_SECRET_ACCESS_KEY: '${{ secrets.AWS_SECRET_ACCESS_KEY }}'
@@ -59,7 +59,7 @@ jobs:
         with:
           cluster: test-ecs-cluster
           service: 'test-${{ inputs.service_name }}-service'
-          task-definition: td-prod.json
+          task-definition: td-test.json
           force-new-deployment: true
           wait-for-service-stability: true
         env:
