@@ -20,7 +20,7 @@ on:
         required: true
 
 jobs:
-  deploy:
+  deploy-dev:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
