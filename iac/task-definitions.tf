@@ -189,7 +189,7 @@ resource "aws_ecs_task_definition" "test_orders_definition" {
 
     environment = [{
       name  = "APP_ARGS"
-      value = "http://172.17.0.2:8080 http://172.17.0.2:8080 http://172.17.0.3:8080"	
+      value = "${aws_lb.test_payments_lb.dns_name} ${aws_lb.test_shipping_lb.dns_name} ${aws_lb.test_products_lb.dns_name}"	
     }]
 
     logConfiguration = {
@@ -229,7 +229,7 @@ resource "aws_ecs_task_definition" "prod_orders_definition" {
 
     environment = [{
       name  = "APP_ARGS"
-      value = "http://172.17.0.2:8080 http://172.17.0.2:8080 http://172.17.0.3:8080"	
+      value = "${aws_lb.prod_payments_lb.dns_name} ${aws_lb.prod_shipping_lb.dns_name} ${aws_lb.prod_products_lb.dns_name}"	
     }]
 
     logConfiguration = {

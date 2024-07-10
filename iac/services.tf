@@ -35,6 +35,11 @@ resource "aws_ecs_service" "test_payments_service" {
   task_definition = aws_ecs_task_definition.payments_definition.arn
   desired_count   = 1
   launch_type     = "FARGATE"
+  load_balancer {
+    target_group_arn = aws_lb_target_group.test_payments_tg.arn
+    container_name   = "payments-container"  
+    container_port   = 8080  
+  }
   network_configuration {
     subnets          = [aws_subnet.vpc-ecs-public-subnet["test"].id]
     security_groups  = [aws_security_group.ecs-contenedores-sg["test"].id]
@@ -52,6 +57,12 @@ resource "aws_ecs_service" "prod_payments_service" {
   task_definition = aws_ecs_task_definition.payments_definition.arn
   desired_count   = 1
   launch_type     = "FARGATE"
+  load_balancer {
+    target_group_arn = aws_lb_target_group.prod_payments_tg.arn
+    container_name   = "payments-container"  
+    container_port   = 8080  
+  }
+  
   network_configuration {
     subnets          = [aws_subnet.vpc-ecs-public-subnet["prod"].id]
     security_groups  = [aws_security_group.ecs-contenedores-sg["prod"].id]
@@ -99,6 +110,11 @@ resource "aws_ecs_service" "test_products_service" {
   task_definition = aws_ecs_task_definition.products_definition.arn
   desired_count   = 1
   launch_type     = "FARGATE"
+  load_balancer {
+    target_group_arn = aws_lb_target_group.test_products_tg.arn
+    container_name   = "products-container"  
+    container_port   = 8080  
+  }
   network_configuration {
     subnets          = [aws_subnet.vpc-ecs-public-subnet["test"].id]
     security_groups  = [aws_security_group.ecs-contenedores-sg["test"].id]
@@ -116,6 +132,11 @@ resource "aws_ecs_service" "prod_products_service" {
   task_definition = aws_ecs_task_definition.products_definition.arn
   desired_count   = 1
   launch_type     = "FARGATE"
+  load_balancer {
+    target_group_arn = aws_lb_target_group.prod_products_tg.arn
+    container_name   = "products-container"  
+    container_port   = 8080  
+  }
   network_configuration {
     subnets          = [aws_subnet.vpc-ecs-public-subnet["prod"].id]
     security_groups  = [aws_security_group.ecs-contenedores-sg["prod"].id]
@@ -157,6 +178,11 @@ resource "aws_ecs_service" "test_shipping_service" {
   task_definition = aws_ecs_task_definition.shipping_definition.arn
   desired_count   = 1
   launch_type     = "FARGATE"
+  load_balancer {
+    target_group_arn = aws_lb_target_group.test_shipping_tg.arn
+    container_name   = "shipping-container"  
+    container_port   = 8080  
+  }
   network_configuration {
     subnets          = [aws_subnet.vpc-ecs-public-subnet["test"].id]
     security_groups  = [aws_security_group.ecs-contenedores-sg["test"].id]
@@ -174,6 +200,11 @@ resource "aws_ecs_service" "prod_shipping_service" {
   task_definition = aws_ecs_task_definition.shipping_definition.arn
   desired_count   = 1
   launch_type     = "FARGATE"
+  load_balancer {
+    target_group_arn = aws_lb_target_group.prod_shipping_tg.arn
+    container_name   = "shipping-container"  
+    container_port   = 8080  
+  }
   network_configuration {
     subnets          = [aws_subnet.vpc-ecs-public-subnet["prod"].id]
     security_groups  = [aws_security_group.ecs-contenedores-sg["prod"].id]
@@ -215,6 +246,11 @@ resource "aws_ecs_service" "test_orders_service" {
   task_definition = aws_ecs_task_definition.test_orders_definition.arn
   desired_count   = 1
   launch_type     = "FARGATE"
+  load_balancer {
+    target_group_arn = aws_lb_target_group.test_orders_tg.arn
+    container_name   = "orders-container"  
+    container_port   = 8080  
+  }
   network_configuration {
     subnets          = [aws_subnet.vpc-ecs-public-subnet["test"].id]
     security_groups  = [aws_security_group.ecs-contenedores-sg["test"].id]
@@ -232,6 +268,11 @@ resource "aws_ecs_service" "prod_orders_service" {
   task_definition = aws_ecs_task_definition.prod_orders_definition.arn
   desired_count   = 1
   launch_type     = "FARGATE"
+  load_balancer {
+    target_group_arn = aws_lb_target_group.prod_orders_tg.arn
+    container_name   = "orders-container"  
+    container_port   = 8080  
+  }
   network_configuration {
     subnets          = [aws_subnet.vpc-ecs-public-subnet["prod"].id]
     security_groups  = [aws_security_group.ecs-contenedores-sg["prod"].id]
