@@ -242,7 +242,7 @@ resource "aws_ecs_task_definition" "prod_orders_definition" {
 
     environment = [{
       name  = "APP_ARGS"
-      value = "${aws_lb.prod_payments_lb.dns_name} ${aws_lb.prod_shipping_lb.dns_name} ${aws_lb.prod_products_lb.dns_name}"	
+      value = "http://${aws_lb.prod_payments_lb.dns_name} http://${aws_lb.prod_shipping_lb.dns_name} http://${aws_lb.prod_products_lb.dns_name}"	
     }]
 
     logConfiguration = {

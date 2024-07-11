@@ -102,6 +102,14 @@ resource "aws_route_table_association" "vpc-ecs-public-route-table-associate" {
   subnet_id      = aws_subnet.vpc-ecs-public-subnet[each.key].id
 }
 
+# Resource: Asociar Route Table con la Subnet secundaria
+resource "aws_route_table_association" "vpc-ecs-public-route-table-associate-secundaria" {
+  for_each = var.environments
+
+  route_table_id = aws_route_table.vpc-ecs-public-route-table[each.key].id
+  subnet_id      = aws_subnet.vpc-ecs-public-subnet-secundary[each.key].id
+}
+
 # Resource: Crear Security Group Load Balancers
 resource "aws_security_group" "ecs-load-balancers-sg" {
   for_each = var.environments
