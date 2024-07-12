@@ -150,7 +150,7 @@ resource "aws_ecs_task_definition" "dev_orders_definition" {
 
     environment = [{
       name  = "APP_ARGS"
-      value = "${aws_lb.dev_payments_lb.dns_name} ${aws_lb.dev_shipping_lb.dns_name} ${aws_lb.dev_products_lb.dns_name}"	
+      value = "http://${aws_lb.dev_payments_lb.dns_name} http://${aws_lb.dev_shipping_lb.dns_name} http://${aws_lb.dev_products_lb.dns_name}"	
     }]
 
     logConfiguration = {
@@ -196,7 +196,7 @@ resource "aws_ecs_task_definition" "test_orders_definition" {
 
     environment = [{
       name  = "APP_ARGS"
-      value = "${aws_lb.test_payments_lb.dns_name} ${aws_lb.test_shipping_lb.dns_name} ${aws_lb.test_products_lb.dns_name}"	
+      value = "http://${aws_lb.test_payments_lb.dns_name} http://${aws_lb.test_shipping_lb.dns_name} http://${aws_lb.test_products_lb.dns_name}"	
     }]
 
     logConfiguration = {

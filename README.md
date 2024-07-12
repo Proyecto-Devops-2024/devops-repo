@@ -10,9 +10,9 @@ Proyecto Devops 2024 (Microservicios-CICD-Terraform-AWS)
 - Herramienta IaC: Terraform
 - Cloud Provider: AWS
 - Herramienta para análisis de código estático: SonarQube
-- Herramienta para análisis de prueba extra: ------------- (Selenium, JUnit)
+- Herramienta para análisis de prueba extra: JMeter
 - Elección de aplicativo de FE a buildear y desplegar: React (S3)
-- Elección del servicio serverless a usar: Cloudfront CDN - Lambda Functions - API Gateway
+- Elección del servicio serverless a usar: API Gateway
 - Estrategia de Ramas: (Gitflow o Trunk-Based)
     - devops-repo: Trunk-Based
     - frontend-react: Trunk-Based
