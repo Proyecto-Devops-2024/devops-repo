@@ -39,7 +39,7 @@ Esto traerá mejoras importantes como:
   - Automatización de procesos varios
   - Integración continua y despliegue continuo 
 
-
+Los microservicios serán implementados en AWS, con el orquestador ECS, y mediante pipelines de Github Actions, se implementarán todo el proceso CI/CD en cada push o pull request al repositorio correspondiente.
 
 # Herramientas Utilizadas
 
@@ -62,6 +62,15 @@ Esto traerá mejoras importantes como:
     - <span style="color:blue">shipping-service:</span>  Trunk-Based
     - <span style="color:blue">orders-service:</span>  Trunk-Based
 
+# Secrets a nivel de organización
+
+AWS_ACCESS_KEY_ID - para implementaciones en AWS.
+AWS_SECRET_ACCESS_KEY - para implementaciones en AWS.
+AWS_SESSION_TOKEN - para implementaciones en AWS.
+AWS_ACCOUNT_ID - para push en ECRs de AWS.
+SONAR_ORGANIZATION - para vinculación con sonarQube.
+SONAR_TOKEN - para vinculación con sonarQube.
+
 # Estrategia de Ramas
 #### Ramas Microservicios:
 <span style="color:blue">Estrategia Trunk-Based</span>  
@@ -73,11 +82,7 @@ Al ser de esta manera, y teniendo tres ambientes los cuales recorrerá el pipeli
 Para el caso de esta repositorio, también entendimos conveniente esta estrategía.
 A diferencia de las ramas para microservicios, todas las modificaciones de código serán generadas por el equipo utilizando feature-branches, lo que nos permite no solo el versionado correspondiente a los códigos a crear, sino también un correcto seguimiento y monitoreo por parte del equipo, generando pull request para la autorización de cada nuevo feature a agregar.
 
-# SECRETS ORGANIZACIÓN
 
-S3_BUCKET_DEV - dev-devapp-devops-bucket
-S3_BUCKET_TEST - test-testapp-devops-bucket
-S3_BUCKET_PROD - prod-prodapp-devops-bucket
 
 # TRUNK-BASED
 Trabajando con feature branches y pull requests en trunk-based development:
