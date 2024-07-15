@@ -9,10 +9,10 @@ Grupo5: Sebastián Berrospe (198596) - Lucas González (251012)
 1. [Solución Propuesta](#solución-propuesta) 
 1. [Herramientas Utilizadas](#herramientas-utilizadas) listo
 1. [Estrategia de Ramas](#estrategia-de-ramas) listo
-1. [Procesos CI/CD](#procesos-ci-cd) listo
-    - [Integración continua](#desarrollo)
-    - [Entrega continua](#producción)
-1. [Topología](#topologia)
+1. [Procesos CI-CD](#procesos-ci-cd) listo
+    - [Integración continua](#integracion-continua) listo
+    - [Entrega continua](#entrega-continua) listo
+1. [Topología e Infraestructura](#topologia-e-infraestructura)
 1. [Testing](#testing)
     - [Análisis de código estático](#desarrollo)
     - [Herramienta externa](#producción)
@@ -152,7 +152,7 @@ Crear contenedor y ejecutarlo conectando con el resto de servicios
 docker run -d --name orders-service-example --env "APP_ARGS=http://172.17.0.2:8080 http://172.17.0.3:8081 http://172.17.0.4:8082" orders-service-example:1
 ```
 
-# Procesos CI/CD
+# Procesos CI-CD
 
 Para una correcta administración de los códigos generados, para los distintos pipelines de la implementación, se optó por una implementación centralizada, teniendo toda la configuración dentro del repositorio devops.
 
@@ -242,7 +242,29 @@ jobs:
 
 ## Integración continua
 
+Para los procesos de CI en la estructura backend JAVA, se utilizaron los siguientes archivos:
+- maven-build-and-test.yml
+  Encargado de el build inicial y mvn test
+- sonarqube-scan-java.yml
+  Encargado de hacer la conexión con sonar y realizar los test automatizados.
+
+Para el caso de los procesos de CI en la estructura frontend VUE, se utilizaron los siguientes archivos:
+- vue-build-and-test.yml
+  Encargado del build inicial y testing inicial en VUE
+- sonarqube-scan-vue.yml
+  Encargado de hacer la conexión con sonar y realizar los test automatizados.
+
 ## Entrega continua
+
+En el caso de la entrega continua del backend, se utilizaron los siguientes archivos:
+- ecr-login-and-push.yml
+  Encargado del login en AWS y el push a los 4 ECRs creados via iac.
+- deploy-dev.yml
+  Encargado de realizar el deploy sobre el ECS dev
+- deploy-test.yml
+  Encargado de realizar el deploy sobre el ECS test
+- deploy-prod.yml
+  Encargado de realizar el deploy sobre el ECS prod
 
 # Topología
 
