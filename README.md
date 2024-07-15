@@ -1,34 +1,63 @@
-# proyecto-devops-2024
-Proyecto Devops 2024 (Microservicios-CICD-Terraform-AWS)
+# UNIVERSIDAD ORT URUGUAY - Facultad de Ingeniería
+## Proyecto Devops 2024 
+Certificado Devops
+Grupo5: Sebastián Berrospe (198596) - Lucas González (251012)
 
-# HERRAMIENTAS UTILIZADAS
-- Herramienta Git: Git/Github
-- Kanban: Github Project
-- Herramienta CI/CD: Github Actions
-- Herramienta para contenedores: Docker
-- Orquestador: ---------
-- Herramienta IaC: Terraform
-- Cloud Provider: AWS
-- Herramienta para análisis de código estático: SonarQube
-- Herramienta para análisis de prueba extra: JMeter
-- Elección de aplicativo de FE a buildear y desplegar: React (S3)
-- Elección del servicio serverless a usar: API Gateway
-- Estrategia de Ramas: (Gitflow o Trunk-Based)
-    - devops-repo: Trunk-Based
-    - frontend-react: Trunk-Based
-    - payments-service: Trunk-Based
-    - products-service: Trunk-Based
-    - shipping-service: Trunk-Based
-    - orders-service: Trunk-Based
+### Índice
+
+1. [Introducción](#introducción)
+1. [Solución Propuesta](#solución-propuesta)
+1. [Herramientas Utilizadas](#herramientas-utilizadas)
+1. [Estrategia de Ramas](#estrategia-de-ramas)
+1. [Procesos CI/CD](#procesos-ci-cd)
+    - [Integración continua](#desarrollo)
+    - [Entrega continua](#producción)
+1. [Topología](#topologia)
+1. [Testing](#testing)
+1. [Seguimiento de trabajos y tareas](#testing)
+1. [Repositorios](#repositorios)
+
+
+# Introducción
+Una empresa líder en el sector retail en permanente innovación y lanzamientos de nuevas aplicaciones y soluciones para sus clientes, detecta recurrentes inconvenientes en los procesos e integración del equipos, en las distintas etapas que hacen al ciclo de vida del desarrollo.
+
+Existe una profunda falta de integración y comunicación entre los equipos de desarrollo e infraestructura, lo que genera en permanentes errores inesperados en el lanzamiento de nuevas versiones, complejos y extensos ciclos de desarrollo, demoras importantes en la detección y solución de errores para las distintas iteraciones, entre otros.
+
+El equipo de proyecto es asignado entonces en buscar una solución a este problema, que por lo analizado escapa a algo técnico por falta de nivel o equipo calificado, sino que es generado por una falta de cultura colaborativa en la integración de los distintos equipos.
+
+# Solución Propuesta
+
+
+
+# Herramientas Utilizadas
+
+- <span style="color:blue">Herramienta Git:</span> Git/Github
+- <span style="color:blue">Kanban:</span> Github Project
+- <span style="color:blue">Herramienta CI/CD:</span> Github Actions
+- <span style="color:blue">Herramienta para contenedores:</span> Docker
+- <span style="color:blue">Orquestador:</span> ECS
+- <span style="color:blue">Herramienta IaC:</span> Terraform
+- <span style="color:blue">Cloud Provider:</span> AWS
+- <span style="color:blue">Herramienta para análisis de código estático:</span> SonarQube
+- <span style="color:blue">Herramienta para análisis de prueba extra:</span> JMeter
+- <span style="color:blue">Elección de aplicativo de FE a buildear y desplegar:</span> Vue (S3)
+- <span style="color:blue">Elección del servicio serverless a usar: API Gateway
+- <span style="color:blue">Estrategia de Ramas:</span> (Gitflow o Trunk-Based)
+    - <span style="color:blue">devops-repo:</span>  Trunk-Based
+    - <span style="color:blue">frontend-vue:</span>  Trunk-Based
+    - <span style="color:blue">payments-service:</span>  Trunk-Based
+    - <span style="color:blue">products-service:</span>  Trunk-Based
+    - <span style="color:blue">shipping-service:</span>  Trunk-Based
+    - <span style="color:blue">orders-service:</span>  Trunk-Based
 
 # Estrategia de Ramas
 #### Ramas Microservicios:
-Estrategia Trunk-Based
+<span style="color:blue">Estrategia Trunk-Based</span>  
 Elegimos estra estrategia para el seguimiento del flujo, ya que tenemos una correcta segmentación de los cuatro microservicios a trabajar, teniendo 4 respositorios independientes.
 Esto nos permite que cuando un solo microservicio tiene cambios en el código, solo se ejecutará el pipeline correspondiente a él, y no todos los microservicios.
 Al ser de esta manera, y teniendo tres ambientes los cuales recorrerá el pipeline, deployando el mismo código en cada uno de ellos, nos parece una correcta forma de seguimiento, ya que en caso de eventuales inconvenientes, el problema podrá ser detectado por cada micro servicio en el pipeline, tanto en ambiente dev o test, antes de pasar a producción, previa autorización manual. 
 #### Rama Devops:
-Estrategia Trunk-Based
+<span style="color:blue">Estrategia Trunk-Based</span>
 Para el caso de esta repositorio, también entendimos conveniente esta estrategía.
 A diferencia de las ramas para microservicios, todas las modificaciones de código serán generadas por el equipo utilizando feature-branches, lo que nos permite no solo el versionado correspondiente a los códigos a crear, sino también un correcto seguimiento y monitoreo por parte del equipo, generando pull request para la autorización de cada nuevo feature a agregar.
 
