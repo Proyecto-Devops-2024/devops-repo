@@ -55,13 +55,8 @@ jobs:
       environment: "test"
     secrets: inherit
 
-  manual-approve:
-    needs: deploy-staging
-    uses: ./.github/workflows/manual-approve.yml
-    secrets: inherit
-
   deploy-prod:
-    needs: manual-approve
+    needs: deploy-staging
     uses: ./.github/workflows/deploy-prod.yml
     with:
       service_name: ${{ inputs.service_name }}
