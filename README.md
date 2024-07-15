@@ -5,16 +5,18 @@ Grupo5: Sebastián Berrospe (198596) - Lucas González (251012)
 
 ### Índice
 
-1. [Introducción](#introducción)
-1. [Solución Propuesta](#solución-propuesta)
-1. [Herramientas Utilizadas](#herramientas-utilizadas)
-1. [Estrategia de Ramas](#estrategia-de-ramas)
+1. [Introducción](#introducción) listo
+1. [Solución Propuesta](#solución-propuesta) 
+1. [Herramientas Utilizadas](#herramientas-utilizadas) listo
+1. [Estrategia de Ramas](#estrategia-de-ramas) listo
 1. [Procesos CI/CD](#procesos-ci-cd)
     - [Integración continua](#desarrollo)
     - [Entrega continua](#producción)
 1. [Topología](#topologia)
 1. [Testing](#testing)
-1. [Seguimiento de trabajos y tareas](#testing)
+    - [Análisis de código estático](#desarrollo)
+    - [Herramienta externa](#producción)
+1. [Seguimiento de trabajos y tareas](#seguimiento-de-trabajos-y-tareas) listo
 1. [Repositorios](#repositorios)
 
 
@@ -26,6 +28,16 @@ Existe una profunda falta de integración y comunicación entre los equipos de d
 El equipo de proyecto es asignado entonces en buscar una solución a este problema, que por lo analizado escapa a algo técnico por falta de nivel o equipo calificado, sino que es generado por una falta de cultura colaborativa en la integración de los distintos equipos.
 
 # Solución Propuesta
+
+Para la solución a estos inconvenientes detectados, se plantea una solución basada en la cultura DevOps, dejando atrás la forma "old school" con la que se manejaba la empresa.
+
+Esto traerá mejoras importantes como:
+ 
+  - Menor time to market
+  - Rápidos tiempos de respuesta ante incidentes
+  - Iteraciones más cortas con feedback continuo 
+  - Automatización de procesos varios
+  - Integración continua y despliegue continuo 
 
 
 
@@ -174,9 +186,15 @@ docker inspect payments-service-example
 
 
 
-# Tablero Kanban
+# Seguimiento de trabajos y tareas
 ### Inicio Semana 1
 ![Ejemplo de imagen local](./imagenes/SEMANA1.png)
 
 ### Inicio Semana 2
 ![Ejemplo de imagen local](./imagenes/SEMANA2.png)
+
+### Inicio Semana 3
+![Ejemplo de imagen local](./imagenes/SEMANA3.png)
+
+### Inicio Semana 4
+![Ejemplo de imagen local](./imagenes/SEMANA4.png)
