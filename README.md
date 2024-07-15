@@ -266,6 +266,37 @@ En el caso de la entrega continua del backend, se utilizaron los siguientes arch
 - deploy-prod.yml
   Encargado de realizar el deploy sobre el ECS prod
 
+Para el caso de la entrega continua del frontend. se utilizaron los siguientes archivos:
+- deploy-s3.yml
+  Este archivo recibiendo un ambiente y una dirección de un recurso S3 bucket en amazon, se encarga de subir los códigos resultantes luego del build and test
+
+```markdown
+deploy-dev:
+    needs: sonarqube-scan
+    uses: ./.github/workflows/deploy-s3.yml
+    with:
+      environment: dev
+      s3_bucket: "dev-devapp-devops-bucket"
+    secrets: inherit
+
+  deploy-test:
+    needs: deploy-dev
+    uses: ./.github/workflows/deploy-s3.yml
+    with:
+      environment: test
+      s3_bucket: "test-testapp-devops-bucket"
+    secrets: inherit
+
+  deploy-prod:
+    needs: deploy-test
+    uses: ./.github/workflows/deploy-s3.yml
+    with:
+      environment: prod
+      s3_bucket: "prod-prodapp-devops-bucket"
+    secrets: inherit
+```
+
+
 # Topología
 
 # Testing

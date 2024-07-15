@@ -46,18 +46,8 @@ jobs:
       s3_bucket: "test-testapp-devops-bucket"
     secrets: inherit
 
-
-  manual-approve:
-    needs: deploy-test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Await manual approval
-        uses: hmarr/auto-approve-action@v2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
   deploy-prod:
-    needs: manual-approve
+    needs: deploy-test
     uses: ./.github/workflows/deploy-s3.yml
     with:
       environment: prod
