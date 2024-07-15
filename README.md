@@ -115,17 +115,20 @@ git branch -d feature/nueva-funcionalidad
 git push origin --delete feature/nueva-funcionalidad
 ```
 
-# Backend
+#### Microservicios
 
-Prerrequisitos
-```markdown
-Instalar JDK
-```
-Empaquetado
+Previa a la implementación y creación de los distintos pipelines encargados del CI/CD, se pusieron en funcionamiento los distintos microservicios en forma local en los equipos de grupo. Algunos comandos utilizados como los siguientes, luego pasarán a ser la base del CI dentro de los pipelines a implementar en Github Actions.
+
+Esta implementación local se crea utilizando contenedores en docker.
+
+Build de la app
 ```markdown
 ./mvnw clean package
 ```
-
+Test de la app
+```markdown
+./mvnw test
+```
 Dockerfile
 ```markdown
 FROM openjdk:8-jdk-alpine
@@ -149,22 +152,43 @@ Crear contenedor y ejecutarlo conectando con el resto de servicios
 docker run -d --name orders-service-example --env "APP_ARGS=http://172.17.0.2:8080 http://172.17.0.3:8081 http://172.17.0.4:8082" orders-service-example:1
 ```
 
-Obtener ip del contenedor(Inspect)
-```markdown
-docker inspect payments-service-example
-```
+# Procesos CI/CD
 
 
+
+## Integración continua
+
+Microservicios
+![repos](./imagenes/pipeline-backend.png)
+
+Frontend
+![repos](./imagenes/pipeline-frontend.png)
+
+## Entrega continua
+
+# Topología
+
+# Testing
+
+## Análisis de código estático
+
+## Herramienta externa
 
 # Seguimiento de trabajos y tareas
+Durante todo el proceso se fueron creando y asignando las distintas tareas correspondientes al proyecto, utilizando un tablero Kanban en la misma organización creada en GitHub.
+
 ### Inicio Semana 1
-![Ejemplo de imagen local](./imagenes/SEMANA1.png)
+![semana1](./imagenes/SEMANA1.png)
 
 ### Inicio Semana 2
-![Ejemplo de imagen local](./imagenes/SEMANA2.png)
+![semana2](./imagenes/SEMANA2.png)
 
 ### Inicio Semana 3
-![Ejemplo de imagen local](./imagenes/SEMANA3.png)
+![semana3](./imagenes/SEMANA3.png)
 
 ### Inicio Semana 4
-![Ejemplo de imagen local](./imagenes/SEMANA4.png)
+![semana4](./imagenes/SEMANA4.png)
+
+# Repositorios
+
+![repos](./imagenes/repositorios.png)
