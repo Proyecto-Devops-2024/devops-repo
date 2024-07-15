@@ -16,7 +16,6 @@ resource "aws_api_gateway_resource" "shipping_resource" {
   path_part   = "shipping"
 }
 
-
 resource "aws_api_gateway_resource" "shipping_by_id_resource" {
   rest_api_id = aws_api_gateway_rest_api.central_api.id
   parent_id   = aws_api_gateway_resource.shipping_resource.id
@@ -43,6 +42,9 @@ resource "aws_api_gateway_method" "orders_method" {
   resource_id   = aws_api_gateway_resource.orders_resource.id
   http_method   = "POST"
   authorization = "NONE"
+  request_models = {
+    "application/json" = "Empty"
+  }
 }
 
 resource "aws_api_gateway_method" "shipping_method" {
@@ -88,6 +90,9 @@ resource "aws_api_gateway_integration" "orders_integration" {
   type        = "HTTP"
   uri         = "http://${aws_lb.prod_orders_lb.dns_name}/orders"  
   integration_http_method = "POST"
+  request_templates = {
+    "application/json" = "$input.body"
+  }
 }
 
 resource "aws_api_gateway_integration" "shipping_integration" {
@@ -146,7 +151,10 @@ resource "aws_api_gateway_deployment" "api_deployment" {
     aws_api_gateway_method_response.product_by_id_200,
     aws_api_gateway_integration.shipping_by_id_integration,
     aws_api_gateway_integration_response.shipping_by_id_200,
-    aws_api_gateway_method_response.shipping_by_id_200
+    aws_api_gateway_method_response.shipping_by_id_200,
+    aws_api_gateway_integration.orders_integration,
+    aws_api_gateway_integration_response.orders_200,
+    aws_api_gateway_method_response.orders_200
   ]
 
   rest_api_id = aws_api_gateway_rest_api.central_api.id
@@ -229,5 +237,27 @@ resource "aws_api_gateway_method_response" "shipping_by_id_200" {
   depends_on = [aws_api_gateway_integration.shipping_by_id_integration]
 }
 
-#################
 
+############orders by products ids##############
+
+resource "aws_api_gateway_integration_response" "orders_200" {
+  rest_api_id = aws_api_gateway_rest_api.central_api.id
+  resource_id = aws_api_gateway_resource.orders_resource.id
+  http_method = aws_api_gateway_method.orders_method.http_method
+  status_code = "200"
+  response_templates = {
+    "application/json" = "$input.body"
+  }
+  depends_on = [aws_api_gateway_integration.orders_integration]
+}
+
+resource "aws_api_gateway_method_response" "orders_200" {
+  rest_api_id = aws_api_gateway_rest_api.central_api.id
+  resource_id = aws_api_gateway_resource.orders_resource.id
+  http_method = aws_api_gateway_method.orders_method.http_method
+  status_code = "200"
+  response_models = {
+    "application/json" = "Empty"
+  }
+  depends_on = [aws_api_gateway_integration.orders_integration]
+}
