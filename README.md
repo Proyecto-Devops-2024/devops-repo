@@ -10,7 +10,7 @@ Grupo5: Sebastián Berrospe (198596) - Lucas González (251012)
 1. [Herramientas Utilizadas](#herramientas-utilizadas) listo
 1. [Estrategia de Ramas](#estrategia-de-ramas) listo
 1. [Procesos CI-CD](#procesos-ci-cd) listo
-    - [Integración continua](#integracion-continua) listo
+    - [Integración continua](#integración-continua) listo
     - [Entrega continua](#entrega-continua) listo
 1. [Topología e Infraestructura](#topologia-e-infraestructura)
 1. [Testing](#testing)
