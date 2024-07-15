@@ -9,7 +9,7 @@ Grupo5: Sebastián Berrospe (198596) - Lucas González (251012)
 1. [Solución Propuesta](#solución-propuesta) 
 1. [Herramientas Utilizadas](#herramientas-utilizadas) listo
 1. [Estrategia de Ramas](#estrategia-de-ramas) listo
-1. [Procesos CI/CD](#procesos-ci-cd)
+1. [Procesos CI/CD](#procesos-ci-cd) listo
     - [Integración continua](#desarrollo)
     - [Entrega continua](#producción)
 1. [Topología](#topologia)
@@ -154,15 +154,93 @@ docker run -d --name orders-service-example --env "APP_ARGS=http://172.17.0.2:80
 
 # Procesos CI/CD
 
+Para una correcta administración de los códigos generados, para los distintos pipelines de la implementación, se optó por una implementación centralizada, teniendo toda la configuración dentro del repositorio devops.
 
+Esto es de utilidad ya que es una solución más acorde al mundo real, ya que dentro de los repositorios donde tienen acceso los distintos desarrolladores de la aplicación, simplemente se hace un llamado a que inicie el proceso del pipeline, impidiendo de esta manera que un tercero fuera del equipo Devops pueda modificarlos.
 
-## Integración continua
+![repos](./imagenes/pipeline-files.png)
 
-Microservicios
+Se crean dos archivos troncales de todo el pipeline, uno para los distintos servicios de backend, y otro para todo el proceso ci/cd del frontend.
+
+Microservicios (main-workflow.yml)
 ![repos](./imagenes/pipeline-backend.png)
 
-Frontend
+Frontend (main-frontend.yml)
 ![repos](./imagenes/pipeline-frontend.png)
+
+Estos dos archivos principales, van llamando a distintos sub tareas, que se encuentran bajo la misma carpeta en distintos archivos, favoreciendo de esta manera la reutilización de los códigos.
+
+Se utilizaron distintas variables para reutilizar los distintos archivos sobre distintos ambientes, microservicios, etc.
+
+```markdown
+name: main-workflow
+
+on:
+  workflow_call:
+    inputs:
+      sonar_project_key:
+        required: true
+        type: string
+      service_name:
+        required: true
+        type: string
+    secrets:
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
+      AWS_SESSION_TOKEN:
+        required: true
+      AWS_ACCOUNT_ID:
+        required: true
+permissions: write-all
+jobs:
+  
+  build-and-test:
+    uses: ./.github/workflows/maven-build-and-test.yml
+  
+  
+  sonarqube-scan:
+    needs: build-and-test
+    uses: ./.github/workflows/sonarqube-scan-java.yml
+    with:
+      sonar_project_key: ${{ inputs.sonar_project_key }}
+    secrets: inherit  
+
+  ecr-login-and-push:
+    needs: sonarqube-scan
+    uses: ./.github/workflows/ecr-login-and-push.yml
+    with:
+      service_name: ${{ inputs.service_name }}
+    secrets: inherit
+
+  deploy-dev:
+    needs: ecr-login-and-push
+    uses: ./.github/workflows/deploy-dev.yml
+    with:
+      service_name: ${{ inputs.service_name }}
+      environment: "dev"
+    secrets: inherit
+
+  deploy-staging:
+    needs: deploy-dev
+    uses: ./.github/workflows/deploy-test.yml
+    with:
+      service_name: ${{ inputs.service_name }}
+      environment: "test"
+    secrets: inherit
+
+  deploy-prod:
+    needs: deploy-staging
+    uses: ./.github/workflows/deploy-prod.yml
+    with:
+      service_name: ${{ inputs.service_name }}
+      environment: "prod"
+    secrets: inherit
+
+```
+
+## Integración continua
 
 ## Entrega continua
 
