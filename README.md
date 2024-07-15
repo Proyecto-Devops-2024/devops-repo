@@ -64,12 +64,12 @@ Los microservicios serán implementados en AWS, con el orquestador ECS, y median
 
 # Secrets a nivel de organización
 
-AWS_ACCESS_KEY_ID - para implementaciones en AWS.
-AWS_SECRET_ACCESS_KEY - para implementaciones en AWS.
-AWS_SESSION_TOKEN - para implementaciones en AWS.
-AWS_ACCOUNT_ID - para push en ECRs de AWS.
-SONAR_ORGANIZATION - para vinculación con sonarQube.
-SONAR_TOKEN - para vinculación con sonarQube.
+- AWS_ACCESS_KEY_ID - para implementaciones en AWS.
+- AWS_SECRET_ACCESS_KEY - para implementaciones en AWS.
+- AWS_SESSION_TOKEN - para implementaciones en AWS.
+- AWS_ACCOUNT_ID - para push en ECRs de AWS.
+- SONAR_ORGANIZATION - para vinculación con sonarQube.
+- SONAR_TOKEN - para vinculación con sonarQube.
 
 # Estrategia de Ramas
 #### Ramas Microservicios:
@@ -84,16 +84,9 @@ A diferencia de las ramas para microservicios, todas las modificaciones de códi
 
 
 
-# TRUNK-BASED
-Trabajando con feature branches y pull requests en trunk-based development:
+#### Trunkbase con feature branch
 
-##### Clonar repositorio
-
-Posisionado donde querramos clonar nuestro repositorio en nuestro equipo, abrimos la terminal de bash y escribimos:
-
-git clone https://github.com/Proyecto-Devops-2024/devops-repo
-
-##### Crear la feature branch:
+Toda la implementación se fue generando, creando distintas ramas feature/xxxx-xxxx
 
 Desde la rama principal (trunk), crea una nueva rama para la característica:
 
@@ -109,41 +102,13 @@ Realiza los cambios necesarios en el código. Asegúrate de realizar commits peq
 ```markdown
 git add .
 git commit -m "Implementa parte de la nueva funcionalidad"
+git pull
 ```
-##### Mantener la feature branch actualizada:
-Dado que otros desarrolladores estarán fusionando sus cambios en el trunk, es importante mantener tu feature branch actualizada:
-
-```markdown
-git checkout main
-git pull origin main
-git checkout feature/nueva-funcionalidad
-git merge main
-```
-
-##### Subir la feature branch al repositorio remoto:
-Una vez que tu funcionalidad está lista para revisión, sube tu rama al repositorio remoto:
-
-```markdown
-git push origin feature/nueva-funcionalidad
-```
-
-##### Crear un pull request:
-En la plataforma de alojamiento de tu repositorio (como GitHub, GitLab, Bitbucket, etc.), navega a la sección de pull requests y crea un nuevo pull request. Selecciona la rama feature/nueva-funcionalidad como la rama fuente y main como la rama destino. Asegúrate de incluir una descripción clara de los cambios y el propósito del PR.
-
-##### Revisión del pull request:
-Otros desarrolladores revisarán tu pull request. Pueden solicitar cambios, hacer comentarios, o aprobarlo. Si se solicitan cambios, realiza los ajustes necesarios en tu feature branch y súbelos:
-
-```markdown
-git add .
-git commit -m "Realiza cambios según comentarios del PR"
-git push origin feature/nueva-funcionalidad
-```
-
-##### Fusionar el pull request:
-Una vez que el pull request ha sido aprobado, puede ser fusionado en la rama main. Esto generalmente se hace desde la interfaz de la plataforma de repositorio.
+##### Pull Request
+Finalmente para correcto seguimiento del código por parte del equipo, los cambios se implementan en la rama main, previa aprobación para este merge.
 
 ##### Eliminar la feature branch:
-Después de que la rama ha sido fusionada y el código ha sido desplegado, puedes eliminar la feature branch tanto local como remotamente:
+Después de que la rama ha sido fusionada y el código ha sido desplegado, se elimina la feature branch tanto local como remotamente:
 
 ```markdown
 git branch -d feature/nueva-funcionalidad
