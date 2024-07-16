@@ -354,9 +354,7 @@ A partir de cada análisis, tanto del Front-end como del Back-end, se puede obte
 
 ## Herramienta externa
 
-<video width="640" height="480" controls>
-  <source src="./Testing Escalabilidad/Video Testing Escalabilidad Service Product.mp4" type="video/mp4">
-</video>
+<video src="./Testing Escalabilidad/Video Testing Escalabilidad Service Product.mp4" width="640" height="480" controls></video>
 
 # Seguimiento de trabajos y tareas
 Durante todo el proceso se fueron creando y asignando las distintas tareas correspondientes al proyecto, utilizando un tablero Kanban en la misma organización creada en GitHub.
