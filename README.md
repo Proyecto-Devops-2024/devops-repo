@@ -461,9 +461,6 @@ También se adjunta un [video](./Testing%20Escalabilidad/Video%20Testing%20Escal
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Okvvz9AzegM?si=7tZYGMGNzeGkLkuV" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-[![Video](![image](https://github.com/user-attachments/assets/6a1c1f6b-b72e-448f-a161-ba04ec3d65f1)
-)](https://www.youtube.com/embed/Okvvz9AzegM?si=7tZYGMGNzeGkLkuV)
-
 # Seguimiento de trabajos y tareas
 Durante todo el proceso se fueron creando y asignando las distintas tareas correspondientes al proyecto, utilizando un tablero Kanban en la misma organización creada en GitHub.
 
