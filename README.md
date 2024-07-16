@@ -347,14 +347,16 @@ PROD
 Lo mismo ocurre en ambiente de prod
 ![ecs](./imagenes/pipeline-products-prod.png)
 
-FINALIZACIÓN
+FINALIZACIÓN - PIPELINES COMPLETADOS
 
 products-pipeline
 ![ecs](./imagenes/pipeline-terminado.png)
 
 orders-pipeline
+![ecs](./imagenes/pipeline-terminado-orders.png)
 
 payments-pipeline
+![ecs](./imagenes/pipeline-terminado-payments.png)
 
 shipping-pipeline
 
