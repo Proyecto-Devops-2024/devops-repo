@@ -158,6 +158,32 @@ docker run -d --name orders-service-example --env "APP_ARGS=http://172.17.0.2:80
 
 Para una correcta administración de los códigos generados, para los distintos pipelines de la implementación, se optó por una implementación centralizada, teniendo toda la configuración dentro del repositorio devops.
 
+```markdown
+name: products-pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+permissions: write-all
+
+jobs:
+  main-workflow:
+    uses: Proyecto-Devops-2024/devops-repo/.github/workflows/main-workflow.yml@main
+    with:
+      sonar_project_key: Proyecto-Devops-2024_products-service
+      service_name: products
+    secrets: inherit
+
+```
+
 Esto es de utilidad ya que es una solución más acorde al mundo real, ya que dentro de los repositorios donde tienen acceso los distintos desarrolladores de la aplicación, simplemente se hace un llamado a que inicie el proceso del pipeline, impidiendo de esta manera que un tercero fuera del equipo Devops pueda modificarlos.
 
 ![repos](./imagenes/pipeline-files.png)
@@ -297,7 +323,33 @@ deploy-dev:
       s3_bucket: "prod-prodapp-devops-bucket"
     secrets: inherit
 ```
+## Demo 
+Al momento de ejecutar un push sobre el respositorio products (o cualquiera de los cuatro), se ejecuta nuestro pipeline.
 
+Una vez culminado el CI, se procede al deploy en AWS.
+
+DEV
+![ecs](./imagenes/pipeline-products.png)
+
+Se crea la nueva tarea, con la nueva task definition:
+![ecs](./imagenes/pipeline-products-services.png)
+
+Por último la anterior tarea es dada de baja, quedando estable la nueva tarea operativa.
+![ecs](./imagenes/pipeline-products-service-finish.png)
+
+TEST
+Lo mismo ocurre en ambiente de test
+![ecs](./imagenes/pipeline-products-test.png)
+
+![ecs](./imagenes/pipeline-products-test-deploy.png)
+
+PROD
+Lo mismo ocurre en ambiente de prod
+![ecs](./imagenes/pipeline-products-prod.png)
+
+FINALIZACIÓN
+
+![ecs](./imagenes/pipeline-terminado.png)
 
 # Topología e Infraestructura
 
@@ -305,9 +357,15 @@ deploy-dev:
 
 Utilizando la herramienta de iac Terraform, se generaron tres ambientes ECS, con sus correspondientes security groups, vpc, subnets, igw, etc.
 
+![ecs-aws](./imagenes/ecs-clusters.png)
+
 En cada ambiente se despliegan los cuatro contenedores, los cuales son vinculados cada uno con un load balancer.
 
+![lb](./imagenes/load-balancers.png)
+
 Finalmente para el acceso centralizado de los recursos, se implementó el servicio serverless de Api Gateway, unificando la URL en una sola.
+
+![api](./imagenes/api-gateway.png)
 
 # Testing
 En esta etapa se realizaron dos tipos de pruebas. Por un lado, se llevó a cabo un análisis de código estático utilizando la herramienta SonarCloud. Por otro lado, se realizaron pruebas de carga y escalabilidad con la herramienta JMeter, enfocándose exclusivamente en los cuatro microservicios. Además, al análisis de código estático se le agregó la evaluación del front-end.
