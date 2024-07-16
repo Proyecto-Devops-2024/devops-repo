@@ -349,7 +349,16 @@ Lo mismo ocurre en ambiente de prod
 
 FINALIZACIÓN
 
+products-pipeline
 ![ecs](./imagenes/pipeline-terminado.png)
+
+orders-pipeline
+
+payments-pipeline
+
+shipping-pipeline
+
+frontend-vue
 
 # Topología e Infraestructura
 
@@ -435,6 +444,8 @@ A continuación, se adjuntan cada uno de los PDF de las pruebas:
 * [Shipping Service](./Testing%20Escalabilidad/Servicio%20Shipping%20testing%20de%20escalabilidad.pdf)
 
 También se adjunta un [video](./Testing%20Escalabilidad/Video%20Testing%20Escalabilidad%20Service%20Product.mp4), en el cual se muestra el proceso de la prueba de Products Service.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Okvvz9AzegM?si=7tZYGMGNzeGkLkuV" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 # Seguimiento de trabajos y tareas
 Durante todo el proceso se fueron creando y asignando las distintas tareas correspondientes al proyecto, utilizando un tablero Kanban en la misma organización creada en GitHub.
