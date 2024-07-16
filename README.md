@@ -303,7 +303,7 @@ deploy-dev:
 En esta etapa se realizaron dos tipos de pruebas. Por un lado, se llevó a cabo un análisis de código estático utilizando la herramienta SonarCloud. Por otro lado, se realizaron pruebas de carga y escalabilidad con la herramienta JMeter, enfocándose exclusivamente en los cuatro microservicios. Además, al análisis de código estático se le agregó la evaluación del front-end.
 
 ## Análisis de código estático
-Esta herramienta proporciona informacion valiosa para detectar problemas en el codigo sin necesidad de ejecucion, en los siguientes titulos se pasara a mostrar cada Back-end/Front-end con su respectivo analisis estatico dando un resumen del analisis y una vista detallada de los problemas, en la misma se puede visualizar cada uno de ellos con su criticida, calidad de codigo, codigo limpio, tipos, etc.
+SonarCloud proporciona informacion valiosa para detectar problemas en el codigo sin necesidad de ejecucion, en los siguientes titulos se pasara a mostrar cada Back-end/Front-end con su respectivo analisis estatico dando un resumen del analisis y una vista detallada de los problemas, en la misma se puede visualizar cada uno de ellos con su criticida, calidad de codigo, codigo limpio, tipos, etc.
 
 ### Front-End
 
@@ -353,8 +353,19 @@ El resumen del analisis estatico para Shipping Service, donde no se marca proble
 A partir de cada análisis, tanto del Front-end como del Back-end, se puede obtener una visión general del estado del código a través de los resúmenes de análisis estático. Si es necesario, se puede revisar el detalle de los problemas identificados, donde SonarCloud proporciona explicaciones claras de cada error y las razones por las cuales deben ser corregidos. De esta manera, cada punto puede ser investigado a fondo utilizando la información proporcionada, permitiendo así corregir todos los problemas y mejorar la calidad del código.
 
 ## Herramienta externa
+En esta prueba de escalabilidad, los cuatro servicios de backend se despliegan en la nube. A cada uno se le asigna un autoscalador con parámetros especificados para cada prueba. De este modo, cuando los servicios reciben una cantidad muy grande de datos a  traves de sus end points, se generan nuevas instancias del servicio para cubrir la demanda. A esta forma de escalamiento se le denomina "escalado horizontal".
 
-<video src="./Testing Escalabilidad/Video Testing Escalabilidad Service Product.mp4" width="640" height="480" controls></video>
+La herramienta JMeter permite realizar múltiples peticiones en paralelo a cualquier endpoint dado, lo que la hace ideal para pruebas de rendimiento y carga. Con JMeter, puedes simular una alta carga de usuarios concurrentes para evaluar cómo se comporta tu aplicación bajo diferentes condiciones de estrés. Además, JMeter proporciona métricas detalladas sobre el tiempo de respuesta, la tasa de errores y el rendimiento general del sistema, ayudando a identificar cuellos de botella y mejorar la eficiencia del servicio.
+
+### Testings
+A continuación, se adjuntan cada uno de los PDF de las pruebas:
+
+* [Orders Service](./Testing%20Escalabilidad/Servicio%20Orders%20testing%20de%20escalabilidad.pdf)
+* [Payments Service](./Testing%20Escalabilidad/Servicio%20Payment%20testing%20de%20escalabilidad.pdf)
+* [Products Service](./Testing%20Escalabilidad/Servicio%20Products%20testing%20de%20escalabilidad.pdf)
+* [Shipping Service](./Testing%20Escalabilidad/Servicio%20Shipping%20testing%20de%20escalabilidad.pdf)
+
+También se adjunta un [video](./Testing%20Escalabilidad/Video%20Testing%20Escalabilidad%20Service%20Product.mp4), en el cual se muestra el proceso de la prueba de Products Service.
 
 # Seguimiento de trabajos y tareas
 Durante todo el proceso se fueron creando y asignando las distintas tareas correspondientes al proyecto, utilizando un tablero Kanban en la misma organización creada en GitHub.
