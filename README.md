@@ -357,6 +357,7 @@ FINALIZACIÓN
 
 Utilizando la herramienta de iac Terraform, se generaron tres ambientes ECS, con sus correspondientes security groups, vpc, subnets, igw, etc.
 
+
 ![ecs-aws](./imagenes/ecs-clusters.png)
 
 En cada ambiente se despliegan los cuatro contenedores, los cuales son vinculados cada uno con un load balancer.
