@@ -88,6 +88,8 @@ A diferencia de las ramas para microservicios, todas las modificaciones de códi
 
 Toda la implementación se fue generando, creando distintas ramas feature/xxxx-xxxx
 
+![trunk](./imagenes/trunk.png)
+
 Desde la rama principal (trunk), crea una nueva rama para la característica:
 
 
@@ -297,7 +299,15 @@ deploy-dev:
 ```
 
 
-# Topología
+# Topología e Infraestructura
+
+![ecs](./imagenes/ecs.png)
+
+Utilizando la herramienta de iac Terraform, se generaron tres ambientes ECS, con sus correspondientes security groups, vpc, subnets, igw, etc.
+
+En cada ambiente se despliegan los cuatro contenedores, los cuales son vinculados cada uno con un load balancer.
+
+Finalmente para el acceso centralizado de los recursos, se implementó el servicio serverless de Api Gateway, unificando la URL en una sola.
 
 # Testing
 En esta etapa se realizaron dos tipos de pruebas. Por un lado, se llevó a cabo un análisis de código estático utilizando la herramienta SonarCloud. Por otro lado, se realizaron pruebas de carga y escalabilidad con la herramienta JMeter, enfocándose exclusivamente en los cuatro microservicios. Además, al análisis de código estático se le agregó la evaluación del front-end.
