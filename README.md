@@ -5,18 +5,18 @@ Grupo5: Sebastián Berrospe (198596) - Lucas González (251012)
 
 ### Índice
 
-1. [Introducción](#introducción) listo
+1. [Introducción](#introducción) 
 1. [Solución Propuesta](#solución-propuesta) 
-1. [Herramientas Utilizadas](#herramientas-utilizadas) listo
-1. [Estrategia de Ramas](#estrategia-de-ramas) listo
-1. [Procesos CI-CD](#procesos-ci-cd) listo
-    - [Integración continua](#integración-continua) listo
-    - [Entrega continua](#entrega-continua) listo
+1. [Herramientas Utilizadas](#herramientas-utilizadas) 
+1. [Estrategia de Ramas](#estrategia-de-ramas) 
+1. [Procesos CI-CD](#procesos-ci-cd) 
+    - [Integración continua](#integración-continua) 
+    - [Entrega continua](#entrega-continua) 
 1. [Topología e Infraestructura](#topologia-e-infraestructura)
 1. [Testing](#testing)
     - [Análisis de código estático](#desarrollo)
     - [Herramienta externa](#producción)
-1. [Seguimiento de trabajos y tareas](#seguimiento-de-trabajos-y-tareas) listo
+1. [Seguimiento de trabajos y tareas](#seguimiento-de-trabajos-y-tareas) 
 1. [Repositorios](#repositorios)
 
 
@@ -380,6 +380,16 @@ En cada ambiente se despliegan los cuatro contenedores, los cuales son vinculado
 Finalmente para el acceso centralizado de los recursos, se implementó el servicio serverless de Api Gateway, unificando la URL en una sola.
 
 ![api](./imagenes/api-gateway.png)
+
+RESPUESTAS API GATEWAY
+Shipping
+![apiship](./imagenes/api-ok-shipping.png)
+Products
+![apiship](./imagenes/api-ok-products.png)
+Products by ID
+![apiship](./imagenes/api-ok-productsbyid.png)
+Orders
+![apiship](./imagenes/api-ok-orders.png)
 
 # Testing
 En esta etapa se realizaron dos tipos de pruebas. Por un lado, se llevó a cabo un análisis de código estático utilizando la herramienta SonarCloud. Por otro lado, se realizaron pruebas de carga y escalabilidad con la herramienta JMeter, enfocándose exclusivamente en los cuatro microservicios. Además, al análisis de código estático se le agregó la evaluación del front-end.
