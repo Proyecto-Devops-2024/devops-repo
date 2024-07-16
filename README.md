@@ -350,17 +350,19 @@ Lo mismo ocurre en ambiente de prod
 FINALIZACIÓN - PIPELINES COMPLETADOS
 
 products-pipeline
-![ecs](./imagenes/pipeline-terminado.png)
+![prod-pip](./imagenes/pipeline-terminado.png)
 
 orders-pipeline
-![ecs](./imagenes/pipeline-terminado-orders.png)
+![orders-pip](./imagenes/pipeline-terminado-orders.png)
 
 payments-pipeline
-![ecs](./imagenes/pipeline-terminado-payments.png)
+![payments-pip](./imagenes/pipeline-terminado-payments.png)
 
 shipping-pipeline
+![front-pip](./imagenes/pipeline-terminado-shipping.png)
 
 frontend-vue
+![front-pip](./imagenes/pipeline-terminado-frontend.png)
 
 # Topología e Infraestructura
 
