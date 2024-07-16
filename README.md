@@ -300,10 +300,63 @@ deploy-dev:
 # Topología
 
 # Testing
+En esta etapa se realizaron dos tipos de pruebas. Por un lado, se llevó a cabo un análisis de código estático utilizando la herramienta SonarCloud. Por otro lado, se realizaron pruebas de carga y escalabilidad con la herramienta JMeter, enfocándose exclusivamente en los cuatro microservicios. Además, al análisis de código estático se le agregó la evaluación del front-end.
 
 ## Análisis de código estático
+Esta herramienta proporciona informacion valiosa para detectar problemas en el codigo sin necesidad de ejecucion, en los siguientes titulos se pasara a mostrar cada Back-end/Front-end con su respectivo analisis estatico dando un resumen del analisis y una vista detallada de los problemas, en la misma se puede visualizar cada uno de ellos con su criticida, calidad de codigo, codigo limpio, tipos, etc.
+
+### Front-End
+
+#### Vue
+El resumen del analisis estatico para Vue, no se marca problemas en la seguridad ni fiabilidad, solo muestra 2 problemas en la mantenibilidad, con un 100% en Puntos críticos revisados, un 0% de cobertura con pruebas automatizadas y 0% de codigo duplicado.
+
+![summary-vue](./imagenes/Testing/frontend-vue-static-testing.png)
+
+##### Detalle
+![summary-vue](./imagenes/Testing/frontend-vue-static-testing-detail-issues.png)
+
+### Back-End
+
+#### Orders Service
+El resumen del analisis estatico para Orders Service, se marca 1 problema en la seguridad, 3 en la fiabilidad, 10 en la mantenibilidad, con un 100% en Puntos críticos revisados, un 0% de cobertura con pruebas automatizadas y 15.7% de codigo duplicado.
+
+![summary-](./imagenes/Testing/orders-service-example-static-testing.png)
+
+##### Detalle
+![summary-](./imagenes/Testing/orders-service-example-static-testing-detail-issues.png)
+
+#### Payments Service
+El resumen del analisis estatico para Payments Service, no se marcan problemas en la seguridad, 2 problemas en fiabilidad, solo muestra 4 problemas en la mantenibilidad, con un 0% en Puntos críticos revisados, un 0% de cobertura con pruebas automatizadas y 0% de codigo duplicado.
+
+![summary-](./imagenes/Testing/payments-service-example-static-testing.png)
+
+##### Detalle
+![summary-](./imagenes/Testing/payments-service-example-static-testing-detail-issues.png)
+
+#### Products Service
+El resumen del analisis estatico para Products Service, no se marca problemas en la seguridad, 1 problema en fiabilidad, 6 en la mantenibilidad, con un 100% en Puntos críticos revisados, un 0% de cobertura con pruebas automatizadas y 0% de codigo duplicado.
+
+![summary-](./imagenes/Testing/products-service-example-static-testing.png)
+
+##### Detalle
+![summary-](./imagenes/Testing/products-service-example-static-testing-detail-issues.png)
+
+#### Shipping Service
+El resumen del analisis estatico para Shipping Service, donde no se marca problemas en la seguridad, 1 solo problema en fiabilidad, 8 en la mantenibilidad, con un 100% en Puntos críticos revisados, un 0% de cobertura con pruebas automatizadas y 0% de codigo duplicado.
+
+![summary-](./imagenes/Testing/shipping-service-example-static-testing.png)
+
+##### Detalle
+![summary-](./imagenes/Testing/shipping-service-example-static-testing-detail.issues.png)
+
+### Resumen
+A partir de cada análisis, tanto del Front-end como del Back-end, se puede obtener una visión general del estado del código a través de los resúmenes de análisis estático. Si es necesario, se puede revisar el detalle de los problemas identificados, donde SonarCloud proporciona explicaciones claras de cada error y las razones por las cuales deben ser corregidos. De esta manera, cada punto puede ser investigado a fondo utilizando la información proporcionada, permitiendo así corregir todos los problemas y mejorar la calidad del código.
 
 ## Herramienta externa
+
+<video width="640" height="480" controls>
+  <source src="./Testing Escalabilidad/Video Testing Escalabilidad Service Product.mp4" type="video/mp4">
+</video>
 
 # Seguimiento de trabajos y tareas
 Durante todo el proceso se fueron creando y asignando las distintas tareas correspondientes al proyecto, utilizando un tablero Kanban en la misma organización creada en GitHub.
